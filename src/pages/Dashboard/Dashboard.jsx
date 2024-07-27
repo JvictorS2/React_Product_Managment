@@ -1,6 +1,6 @@
 import AvatarGeneral from '../../components/avatar/avatar';
 import BtnGeneral from '../../components/button/button';
-import InputGeneral from '../../components/input/Input';
+import InputGeneral from '../../components/input/input';
 import './Dashboard.css'
 
 const DashBoard = () => {
