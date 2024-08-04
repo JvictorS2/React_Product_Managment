@@ -1,20 +1,22 @@
-import AvatarGeneral from '../../components/avatar/avatar';
-import BtnGeneral from '../../components/button/button';
-import InputGeneral from '../../components/input/input';
-import './Dashboard.css'
+import { useNavigate } from "react-router-dom";
+import "./Dashboard.css";
+import { useEffect } from "react";
+import { verifyLogin } from "../../utils/auth";
 
-const DashBoard = () => {
-    return (
-        <>
-            <h1 >DashBoard</h1>
-            {/* 
-                Components test
-            <BtnGeneral btn_text="click me" ></BtnGeneral>
-            <InputGeneral input_text="Enter your name" ></InputGeneral>
-            <AvatarGeneral></AvatarGeneral> */}
-            
-        </>
-    )
-}
+
+const DashBoard = (props) => {
+  const navigate = useNavigate();
+
+  // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
+  useEffect(() => {
+    verifyLogin(navigate);
+  }, []);
+
+  return (
+    <>
+      <h1>DashBoard</h1>
+    </>
+  );
+};
 
 export default DashBoard;

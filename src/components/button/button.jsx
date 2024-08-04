@@ -1,12 +1,7 @@
-
 import { Button } from "native-base";
 
-
 const BtnGeneral = (props) => {
-    const { btn_text } = props;
-    return (
-        <Button>{btn_text}</Button>
-    )
-}
+  return <Button {...props}>{props.children}</Button>;
+};
 
 export default BtnGeneral;
