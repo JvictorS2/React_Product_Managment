@@ -24,7 +24,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-console.log(auth);
+
 /* Routes */
 // export to route
 const Login = lazy(() => import("./pages/authentication/Login/Login"));
@@ -34,11 +34,11 @@ const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const RecoveryPassword = lazy(() =>
   import("./pages/authentication/recoveryPassword/recoveryPassword")
 );
-const Product = lazy(() => import("./pages/Product/Product"));
+const Product = lazy(() => import("./pages/Stock/Stock"));
 
 export default function App() {
   return (
-    <NativeBaseProvider>
+    <NativeBaseProvider >
       <Router>
         <Suspense fallback={"Carregando"}>
           <Routes>

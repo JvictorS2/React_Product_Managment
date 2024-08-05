@@ -1,6 +1,7 @@
 export { default as Input } from './input/input'
 export { default as Avatar } from './avatar/avatar'
-export {default as Button} from './button/button'
+export { default as Button } from './button/button'
+export { default as DataTable } from "./dataTable/dataTable";
 
 /* Layout components */
 export { default as Grid } from './layout/grid/grid'

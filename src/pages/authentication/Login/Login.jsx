@@ -19,21 +19,23 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-    // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
+  // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
-  },[] );
+  }, []);
 
   const loginByEmailPassword = async () => {
     // states to Sign in
     try {
       // realizar o processo de login
       const response = await loginFirebase(props.auth, email, password);
-      console.log(response);
-      // salva os dados de login no local storage da aplicação
-      window.localStorage.setItem("user", JSON.stringify(response.user));
-      //redireciona para o dashboard
-      navigate("/dashboard");
+      if (response) {
+        //redireciona para o dashboard
+        navigate("/dashboard");
+      } else {
+        alert("email não verificado");
+        return;
+      }
     } catch (error) {
       throw error;
     }
@@ -41,7 +43,7 @@ const Login = (props) => {
 
   return (
     <form onSubmit={(event) => event.preventDefault}>
-      <Grid width="100%" height="100vh" bg="primary.200">
+      <Grid width="100%" height="100vh" bg="primary.900">
         <Center height="100%">
           <VStack p={50} borderRadius="md" space={4}>
             <Center>

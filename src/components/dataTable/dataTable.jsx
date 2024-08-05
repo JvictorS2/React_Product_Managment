@@ -1,0 +1,57 @@
+import { FlatList } from "native-base";
+import { Grid, HStack, Text } from "..";
+
+const DataTable = (props) => {
+    // Cabeçalho da tabela
+    console.log(props)
+  const CheadTable = () => {
+    return (
+      <>
+        {props.HeadTable.map((item, index) => (
+          <Grid key={index} flex={item.size}>
+            <Text textAlign="center" bold>
+              {item.name}
+            </Text>
+          </Grid>
+        ))}
+      </>
+    );
+  };
+  // Item da tabela
+  const CiItemTable = ({ item }) => {
+    const valuesArray = Object.values(item);
+    
+    return (
+      <>
+        <Grid>
+          <HStack p={3} justifyContent="space-between">
+            {valuesArray.map((item, index) => (
+              <Grid key={index} flex={props.HeadTable[index].size}>
+                <Text textAlign="center">{item}</Text>
+              </Grid>
+            ))}
+          </HStack>
+        </Grid>
+      </>
+    );
+  };
+
+  // Tabela completa
+  return (
+    <>
+      <Grid width="100%" height="80vh" bg="primary.100">
+        <HStack bg="primary.600" p={3} justifyContent="space-between">
+          <CheadTable></CheadTable>
+        </HStack>
+        {/* Redenriza os itens da tabela */}
+        <FlatList
+          data={props.data}
+          renderItem={CiItemTable}
+          keyExtractor={(item) => item.id}
+        />
+      </Grid>
+    </>
+  );
+};
+
+export default DataTable;

@@ -11,3 +11,4 @@ const AvatarGeneral = (props) => {
 }
 
 export default AvatarGeneral;
+
