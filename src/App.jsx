@@ -1,9 +1,10 @@
 import React, { lazy, Suspense, useState } from "react";
-import { NativeBaseProvider } from "native-base";
+import { extendTheme, NativeBaseProvider } from "native-base";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth/cordova";
+import { theme } from "./theme/light";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,7 +30,7 @@ const auth = getAuth(app);
 // export to route
 const Login = lazy(() => import("./pages/authentication/Login/Login"));
 const LogOut = lazy(() => import("./pages/authentication/LogOut/LogOut"));
-const SignUp = lazy(() => import("./pages/SignUp/signUp"));
+const SignUp = lazy(() => import("./pages/authentication/SignUp/signUp"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const RecoveryPassword = lazy(() =>
   import("./pages/authentication/recoveryPassword/recoveryPassword")
@@ -37,8 +38,10 @@ const RecoveryPassword = lazy(() =>
 const Product = lazy(() => import("./pages/Stock/Stock"));
 
 export default function App() {
+ 
+
   return (
-    <NativeBaseProvider >
+    <NativeBaseProvider  theme={theme}>
       <Router>
         <Suspense fallback={"Carregando"}>
           <Routes>
@@ -51,7 +54,7 @@ export default function App() {
             <Route path="/LogOut" element={<LogOut app={app} auth={auth} />} />
             <Route path="/SignUp" element={<SignUp app={app} auth={auth} />} />
             <Route
-              path="/recoveryPassWord"
+              path="/recovery"
               element={<RecoveryPassword app={app} auth={auth} />}
             />
             <Route

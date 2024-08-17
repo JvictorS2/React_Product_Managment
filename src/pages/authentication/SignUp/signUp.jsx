@@ -1,27 +1,41 @@
-import "./recoveryPassword.css";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { recoveryPasswordFirebase, verifyLogin } from "../../../utils/auth";
-import { Button, Center, Grid, Heading, Input, Text, VStack } from "../../../components";
+import {
+  Avatar,
+  Button,
+  Center,
+  Container,
+  Grid,
+  Heading,
+  HStack,
+  Input,
+  Text,
+  VStack,
+} from "../../../components";
 
-const RecoveryPassword = (props) => {
+
+import "./SignUp.css";
+import { useNavigate } from "react-router-dom";
+import { signupFirebase, verifyLogin } from "../../../utils/auth";
+
+const SignUp = (props) => {
+  // states to Sign in
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
-  }, []);
-
-  const recoveryPassword = async () => {
-    // states to Sign in
+  },);
+  
+  const signup = async () => {
     try {
-      await recoveryPasswordFirebase(props.auth, email);
-
+      await signupFirebase(props.auth,email,password)
     } catch (error) {
       throw error;
     }
-  };
+  }
 
   return (
     <Grid width="100%" height="100vh" bg="primary.100">
@@ -30,7 +44,7 @@ const RecoveryPassword = (props) => {
           <VStack flex={1} p={50} borderRadius="md" space={2}>
             <Grid justifyContent="center" flexGrow={4}>
               <Heading fontSize="4xl" alignSelf="center">
-                Recuperar senha
+                Cadastar
               </Heading>
             </Grid>
             <VStack space={6}>
@@ -42,16 +56,22 @@ const RecoveryPassword = (props) => {
                 />
               </Grid>
               <Grid>
+                <Input
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Insira sua senha"
+                />
+              </Grid>
+              <Grid>
                 <Button
                   size="md"
                   width="70%"
                   alignSelf="center"
-                  onPress={recoveryPassword}
+                  onPress={signup}
                 >
-                  Enviar solicitação
+                  Cadastrar
                 </Button>
               </Grid>
-              
             </VStack>
             <Grid justifyContent="end" flexGrow={10}>
               <Text
@@ -71,4 +91,4 @@ const RecoveryPassword = (props) => {
   );
 };
 
-export default RecoveryPassword;
+export default SignUp;

@@ -9,6 +9,7 @@ import {
   Grid,
   HStack,
   Input,
+  NavBar,
   Text,
   VStack,
 } from "../../components";
@@ -22,48 +23,8 @@ const DashBoard = (props) => {
   }, []);
 
   return (
-    <Grid width="100%" height="100vh" bg="primary.800">
-      <Grid
-        justifyContent="space-between"
-        flexDirection="row"
-        height="8vh"
-        alignItems="center"
-        bg="primary.900"
-        px={6}
-      >
-        <Grid flexGrow={12}>
-          <Text
-            color="white"
-            fontSize="lg"
-            cursor="pointer"
-            onPress={() => navigate("/")}
-          >
-            Home
-          </Text>
-        </Grid>
-        <Grid flexGrow={1}>
-          <Text
-            textAlign="center"
-            color="white"
-            fontSize="lg"
-            cursor="pointer"
-            onPress={() => navigate("/product")}
-          >
-            Product
-          </Text>
-        </Grid>
-        <Grid flexGrow={1}>
-          <Text
-            textAlign="center"
-            color="white"
-            fontSize="lg"
-            cursor="pointer"
-            onPress={() => navigate("/logout")}
-          >
-            Sair
-          </Text>
-        </Grid>
-      </Grid>
+    <Grid width="100%" height="100vh" bg="primary.100">
+      <NavBar></NavBar>
       <Grid></Grid>
     </Grid>
   );

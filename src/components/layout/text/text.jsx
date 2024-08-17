@@ -1,11 +1,7 @@
 import { Text } from "native-base"
 
 const TextNativeBase = (props) => {
-    return (
-        <Text {...props} >
-           
-        </Text>
-    )
+    return <Text fontSize="md" color={"text.100"} {...props}></Text>;
 }
 
 export default TextNativeBase;
