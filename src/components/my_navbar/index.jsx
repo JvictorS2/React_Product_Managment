@@ -1,51 +1,35 @@
-import { Icon, IconButton } from "native-base";
-import { Grid, HStack, Text } from ".."
+/* my components */
+import {
+  Grid,
+  IconButton,
+  TemporaryDrawer,
+  VStack,
+} from "..";
+/* Hooks */
+import React, { useState } from "react";
+/* Icons */
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 
-const NavBar = () => {
-    return (
-      <Grid height="8vh" bg="primary.50">
-        <HStack
-          px="4"
-          py="3"
-          justifyContent="space-between"
-          alignItems="center"
-          w="100%"
-        >
-          <HStack alignItems="center">
-            <IconButton
-              icon={
-                <Icon  name="menu" size="sm" color="white" />
-              }
-            />
-            <Text>
-              My App
-            </Text>
-          </HStack>
-          <HStack space="2">
-            <IconButton
-              icon={
-                <Icon
-                 
-                  name="search"
-                  size="sm"
-                  color="white"
-                />
-              }
-            />
-            <IconButton
-              icon={
-                <Icon
-          
-                  name="notifications"
-                  size="sm"
-                  color="white"
-                />
-              }
-            />
-          </HStack>
-        </HStack>
+const NavBar = (props) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <VStack flex={1} shadow={4}>
+      <Grid px={3} py={2} justifyContent="center" bg="primary.50">
+        <IconButton
+          icon={<MenuRoundedIcon fontSize="large" />}
+          onPress={() => setOpen(!open)}
+        />
       </Grid>
-    );
+      {/* Drawer */}
+      <TemporaryDrawer
+        open={open}
+        setOpen={setOpen}
+        navigate={props.navigate}
+        auth={props.auth}
+      ></TemporaryDrawer>
+    </VStack>
+  );
 };
 
 export default NavBar;

@@ -1,18 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+/* hooks */
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+/* my */
 import { verifyLogin } from "../../utils/auth";
-import {
-  Avatar,
-  Button,
-  Center,
-  Grid,
-  HStack,
-  Input,
-  NavBar,
-  Text,
-  VStack,
-} from "../../components";
+import { Grid, Text, NavBar } from "../../components";
+
+
 
 const DashBoard = (props) => {
   const navigate = useNavigate();
@@ -23,10 +17,12 @@ const DashBoard = (props) => {
   }, []);
 
   return (
-    <Grid width="100%" height="100vh" bg="primary.100">
-      <NavBar></NavBar>
-      <Grid></Grid>
-    </Grid>
+
+    <Grid flex={1}>
+      <NavBar navigate={navigate} auth={props.auth} ></NavBar>
+        <Text>Conteúdo principal aqui</Text>
+      </Grid>
+  
   );
 };
 

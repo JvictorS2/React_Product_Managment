@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useState } from "react";
-import { extendTheme, NativeBaseProvider } from "native-base";
+import {  NativeBaseProvider } from "native-base";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
@@ -29,7 +29,6 @@ const auth = getAuth(app);
 /* Routes */
 // export to route
 const Login = lazy(() => import("./pages/authentication/Login/Login"));
-const LogOut = lazy(() => import("./pages/authentication/LogOut/LogOut"));
 const SignUp = lazy(() => import("./pages/authentication/SignUp/signUp"));
 const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
 const RecoveryPassword = lazy(() =>
@@ -38,20 +37,37 @@ const RecoveryPassword = lazy(() =>
 const Product = lazy(() => import("./pages/Stock/Stock"));
 
 export default function App() {
- 
+  
+  const [navBarOn,setNavBarOn] = useState(false)
 
   return (
-    <NativeBaseProvider  theme={theme}>
+    <NativeBaseProvider theme={theme}>
       <Router>
         <Suspense fallback={"Carregando"}>
           <Routes>
-            <Route path="/" element={<Dashboard app={app} auth={auth} />} />
+            <Route
+              path="/"
+              element={
+                <Dashboard
+                  app={app}
+                  auth={auth}
+                  navBarOn={navBarOn}
+                  setNavBarOn={setNavBarOn}
+                />
+              }
+            />
             <Route
               path="/Dashboard"
-              element={<Dashboard app={app} auth={auth} />}
+              element={
+                <Dashboard
+                  app={app}
+                  auth={auth}
+                  navBarOn={navBarOn}
+                  setNavBarOn={setNavBarOn}
+                />
+              }
             />
             <Route path="/Login" element={<Login app={app} auth={auth} />} />
-            <Route path="/LogOut" element={<LogOut app={app} auth={auth} />} />
             <Route path="/SignUp" element={<SignUp app={app} auth={auth} />} />
             <Route
               path="/recovery"
@@ -59,7 +75,14 @@ export default function App() {
             />
             <Route
               path="/Product"
-              element={<Product app={app} auth={auth} />}
+              element={
+                <Product
+                  app={app}
+                  auth={auth}
+                  navBarOn={navBarOn}
+                  setNavBarOn={setNavBarOn}
+                />
+              }
             />
           </Routes>
         </Suspense>

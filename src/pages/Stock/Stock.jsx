@@ -1,22 +1,26 @@
-import { useNavigate } from "react-router-dom";
 import "./Stock.css";
+/* hook */
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+/* my */
 import { verifyLogin } from "../../utils/auth";
-import { DataTable, Grid, Heading } from "../../components";
+import { DataTable, Grid, NavBar } from "../../components";
+/* Externo */
 import axios from "axios";
+
 
 const Stock = (props) => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
-  // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
 
+  // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
     GetDataByUrl();
   }, []);
 
 
-
+  /* Acessa os dados de uma API externa */
   const GetDataByUrl = async () => {
     try {
       const response = await axios.get("https://fakestoreapi.com/products");
@@ -27,6 +31,7 @@ const Stock = (props) => {
     }
   };
 
+  /* Filtrar os dados, deveolver apenas os dados com as keys no array */
   const FilterData = async (data) => {
     const keysToKeep = ["id", "title", "category", "price"];
 
@@ -39,6 +44,9 @@ const Stock = (props) => {
     setData(filteredObject);
   };
 
+  /* Objeto usado no componente DataTable o nome se refere a coluna e
+   size ao tamanho propocional que a coluna ocupa na tela */
+
   const HeadTable = [
     { name: "ID", size: 2 },
     { name: "Nome", size: 20 },
@@ -47,13 +55,9 @@ const Stock = (props) => {
   ];
 
   return (
-    <Grid width="100%" height="100vh" bg="primary.800">
-      <Grid height="8vh" justifyContent="center" alignItems="center">
-        <Heading size="xl">Estoque</Heading>
-      </Grid>
-      <Grid>
-        <DataTable data={data} HeadTable={HeadTable}></DataTable>
-      </Grid>
+    <Grid flex={1}>
+      <NavBar navigate={navigate} auth={props.auth}></NavBar>
+      <DataTable HeadTable={HeadTable} data={data}></DataTable>;
     </Grid>
   );
 };

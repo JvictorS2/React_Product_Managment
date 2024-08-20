@@ -85,9 +85,11 @@ const recoveryPasswordFirebase = async (auth, email) => {
 };
 
 // Log out
-const logoutFirebase = async (auth) => {
+const logoutFirebase = async (auth,navigate) => {
   try {
     await signOut(auth);
+    window.localStorage.removeItem("user");
+    navigate("/login");
   } catch (error) {
     throw error;
   }
