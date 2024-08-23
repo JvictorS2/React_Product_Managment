@@ -16,14 +16,13 @@ import LocalGroceryStoreRoundedIcon from "@mui/icons-material/LocalGroceryStoreR
 import StackedLineChartRoundedIcon from "@mui/icons-material/StackedLineChartRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
-import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import { logoutFirebase } from "../../utils/auth";
 
 const TemporaryDrawer = (props) => {
   const DrawerList = (
     <Grid
       w="70vw"
-      height="100vh"
+      flex={1}
       bg="primary.100"
       onPress={() => props.setOpen(!props.open)}
     >
@@ -78,8 +77,8 @@ const TemporaryDrawer = (props) => {
         <Grid>
           <IconButton
             icon={<ExitToAppRoundedIcon fontSize="large" />}
-            color="secondary.200"
-           onPress={() => logoutFirebase(props.auth,props.navigate)}
+            color="tertiary.50"
+            onPress={() => logoutFirebase(props.auth, props.navigate)}
           />
         </Grid>
       </Grid>

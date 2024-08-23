@@ -8,8 +8,10 @@ import { Grid, Text, NavBar } from "../../components";
 
 
 
+
 const DashBoard = (props) => {
   const navigate = useNavigate();
+  
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
@@ -17,12 +19,12 @@ const DashBoard = (props) => {
   }, []);
 
   return (
-
-    <Grid flex={1}>
-      <NavBar navigate={navigate} auth={props.auth} ></NavBar>
+    <Grid bg="primary.100" h="100vh">
+      <NavBar navigate={navigate} auth={props.auth}></NavBar>
+      <Grid >
         <Text>Conteúdo principal aqui</Text>
       </Grid>
-  
+    </Grid>
   );
 };
 

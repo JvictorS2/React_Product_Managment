@@ -1,6 +1,14 @@
 import { FlatList } from "native-base";
 import { Grid, HStack, Text } from "..";
 
+/* 
+========================================================================================
+
+  Tabela para visualização de dados durante o uso da API firebase ou outras
+
+========================================================================================
+*/
+
 const DataTable = (props) => {
     // Cabeçalho da tabela
 
@@ -39,7 +47,7 @@ const DataTable = (props) => {
   // Tabela completa
   return (
     <>
-      <Grid flex={12}  bg="primary.100">
+      <Grid flexWrap='wrap' overflowX="scroll" bg="primary.100">
         <HStack bg="primary.600" p={3} justifyContent="space-between">
           <CheadTable></CheadTable>
         </HStack>

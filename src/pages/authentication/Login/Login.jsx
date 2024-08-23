@@ -46,16 +46,15 @@ const Login = (props) => {
     <Grid width="100%" height="100vh" bg="primary.100">
       <form onSubmit={(event) => event.preventDefault}>
         <Center height="100vh">
-          <VStack flex={1}  p={50} borderRadius="md" space={2}>
+          <VStack flex={1} p={50} borderRadius="md" space={2}>
             <Grid justifyContent="center" flexGrow={4}>
-              <Heading fontSize="4xl" alignSelf="center">
+              <Heading fontSize="4xl" color="text.100" alignSelf="center">
                 Log in
               </Heading>
             </Grid>
             <VStack space={6}>
               <Grid>
                 <Input
-                  
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="Insira seu email"
@@ -69,7 +68,14 @@ const Login = (props) => {
                 />
               </Grid>
               <Grid>
-                <Button size="md" width="70%" alignSelf="center" onPress={loginByEmailPassword}>Log in</Button>
+                <Button
+                  size="md"
+                  width="70%"
+                  alignSelf="center"
+                  onPress={loginByEmailPassword}
+                >
+                  <Text>Log in</Text>
+                </Button>
               </Grid>
               <Grid>
                 <Text
@@ -82,7 +88,7 @@ const Login = (props) => {
                 </Text>
               </Grid>
             </VStack>
-            <Grid justifyContent="end"  flexGrow={10}>
+            <Grid justifyContent="end" flexGrow={10}>
               <Text
                 bold
                 alignSelf="center"

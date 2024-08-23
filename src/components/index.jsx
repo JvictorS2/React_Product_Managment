@@ -1,7 +1,7 @@
+/* Nativebase components */
 export { default as Input } from './input/input'
 export { default as Avatar } from './avatar/avatar'
 export { default as Button } from './button/button'
-export { default as DataTable } from "./dataTable/dataTable";
 export {default as IconButton} from './icon/icon'
 
 /* Layout components */
@@ -13,8 +13,11 @@ export { default as Text } from './layout/text/text'
 export { default as Container } from './layout/container/container'
 export { default as Heading } from './layout/heading/heading'
 export { default as Divider } from "./layout/divider/index";
+
 /* My components */
 export { default as NavBar } from './my_navbar'
+export { default as ToggleDarkMode } from './toggleDarkMode'
+export { default as DataTable } from "./dataTable/dataTable";
 
 /* Materail UI */
 export { default as TemporaryDrawer} from './temporaryDrawer/index'

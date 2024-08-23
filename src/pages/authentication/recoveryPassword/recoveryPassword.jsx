@@ -48,10 +48,9 @@ const RecoveryPassword = (props) => {
                   alignSelf="center"
                   onPress={recoveryPassword}
                 >
-                  Enviar solicitação
+                  <Text>Enviar solicitação</Text>
                 </Button>
               </Grid>
-              
             </VStack>
             <Grid justifyContent="end" flexGrow={10}>
               <Text

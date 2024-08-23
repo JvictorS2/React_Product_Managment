@@ -69,7 +69,7 @@ const SignUp = (props) => {
                   alignSelf="center"
                   onPress={signup}
                 >
-                  Cadastrar
+                  <Text>Cadastrar</Text>
                 </Button>
               </Grid>
             </VStack>

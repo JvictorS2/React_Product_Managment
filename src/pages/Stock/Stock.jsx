@@ -55,9 +55,9 @@ const Stock = (props) => {
   ];
 
   return (
-    <Grid flex={1}>
+    <Grid bg="primary.100" h="100vh">
       <NavBar navigate={navigate} auth={props.auth}></NavBar>
-      <DataTable HeadTable={HeadTable} data={data}></DataTable>;
+      <DataTable HeadTable={HeadTable} data={data}></DataTable>
     </Grid>
   );
 };

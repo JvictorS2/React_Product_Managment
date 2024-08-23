@@ -1,0 +1,46 @@
+.toogle{
+    display: flex;
+    align-items: center;
+    padding-right: 12px;
+}
+
+.checkbox{
+    opacity: 0;
+    position: absolute;
+}
+
+
+
+.label{
+    background-color: #51439f;
+    border-radius: 50px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    height: 20px;
+    width: 44px;
+
+    transform: scale(1.5);
+}
+
+.ball{
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+
+    height: 16px;
+    width: 16px;
+
+    transform: translateX(0px);
+    transition: transform 200ms linear;
+}
+
+.checkbox:checked + .label .ball {
+    transform: translateX(24px);
+}

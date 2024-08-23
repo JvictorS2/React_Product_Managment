@@ -1,10 +1,14 @@
-import React, { lazy, Suspense, useState } from "react";
-import {  NativeBaseProvider } from "native-base";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { lazy, Suspense, useContext, useState } from "react";
 
-import { initializeApp } from "firebase/app";
+/* Dependências exeternas */
+import { NativeBaseProvider } from "native-base";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getAuth } from "firebase/auth/cordova";
-import { theme } from "./theme/light";
+import { initializeApp } from "firebase/app";
+
+import { ThemeLight } from "./theme/light.jsx";
+import { ThemeDark } from "./theme/dark.jsx";
+import { MyContext } from "./context/statesGlobal.jsx";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -37,13 +41,13 @@ const RecoveryPassword = lazy(() =>
 const Product = lazy(() => import("./pages/Stock/Stock"));
 
 export default function App() {
-  
-  const [navBarOn,setNavBarOn] = useState(false)
+  const [navBarOn, setNavBarOn] = useState(false);
+  const { dataGlobal, setDataGlobal } = useContext(MyContext);
 
   return (
-    <NativeBaseProvider theme={theme}>
+    <NativeBaseProvider theme={dataGlobal.darkMode ? ThemeLight : ThemeDark}>
       <Router>
-        <Suspense fallback={"Carregando"}>
+        <Suspense fallback={"Loading..."}>
           <Routes>
             <Route
               path="/"
@@ -88,5 +92,6 @@ export default function App() {
         </Suspense>
       </Router>
     </NativeBaseProvider>
+   
   );
 }

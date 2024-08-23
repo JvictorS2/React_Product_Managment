@@ -1,10 +1,10 @@
 import { extendTheme } from "native-base";
 /* TODO* Light mode */
-const theme = extendTheme({
+const ThemeLight = extendTheme({
   colors: {
     // Add new color
     primary: {
-      50: "#EEEEEE" /* constrate */,
+      50: "#fff" /* constrate */,
       100: "#E5EBEE" /* cor principal */,
       200: "#fff" /* branco puro */,
     },
@@ -15,6 +15,7 @@ const theme = extendTheme({
     },
     tertiary: {
       50: "#A85462",
+      100: "#a4161a",
     },
     text: {
       50: "#FEF7FF" /* texto junto da cor secundária */,
@@ -28,4 +29,4 @@ const theme = extendTheme({
   },
 });
 
-export {theme};
+export { ThemeLight };
