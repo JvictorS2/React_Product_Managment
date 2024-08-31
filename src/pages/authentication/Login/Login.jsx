@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -14,8 +14,10 @@ import {
 import "./Login.css";
 import { loginFirebase, verifyLogin } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { MyContext } from "../../../context/statesGlobal";
 
-const Login = (props) => {
+const Login = () => {
+  const { dataGlobal, setDataGlobal } = useContext(MyContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -29,7 +31,11 @@ const Login = (props) => {
     // states to Sign in
     try {
       // realizar o processo de login
-      const response = await loginFirebase(props.auth, email, password);
+      const response = await loginFirebase(
+        dataGlobal.authFirebase,
+        email,
+        password
+      );
       if (response) {
         //redireciona para o dashboard
         navigate("/dashboard");
@@ -108,10 +114,3 @@ const Login = (props) => {
 
 export default Login;
 
-/* 
-3BCEAC  
-F3EEE9 
-A85462 
-7EB5A1 
-D2CACD
-*/

@@ -1,8 +1,9 @@
 /* Nativebase components */
 export { default as Input } from './input/input'
 export { default as Avatar } from './avatar/avatar'
-export { default as Button } from './button/button'
-export {default as IconButton} from './icon/icon'
+export { default as IconButton } from './icon/icon'
+export { default as Button } from './button/buttonDefault/button'
+export {default as FloatBtn} from './button/floatButton'
 
 /* Layout components */
 export { default as Grid } from './layout/grid/grid'
@@ -20,4 +21,5 @@ export { default as ToggleDarkMode } from './toggleDarkMode'
 export { default as DataTable } from "./dataTable/dataTable";
 
 /* Materail UI */
-export { default as TemporaryDrawer} from './temporaryDrawer/index'
+export { default as TemporaryDrawer } from './temporaryDrawer/index'
+export {default as MyModal} from './modal/index'

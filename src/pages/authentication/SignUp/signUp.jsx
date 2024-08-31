@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Avatar,
   Button,
@@ -12,10 +12,10 @@ import {
   VStack,
 } from "../../../components";
 
-
 import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
 import { signupFirebase, verifyLogin } from "../../../utils/auth";
+import { MyContext } from "../../../context/statesGlobal";
 
 const SignUp = (props) => {
   // states to Sign in
@@ -23,19 +23,20 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const { dataGlobal, setDataGlobal } = useContext(MyContext);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
-  },);
-  
+  });
+
   const signup = async () => {
     try {
-      await signupFirebase(props.auth,email,password)
+      await signupFirebase(dataGlobal.authFirebase, email, password);
     } catch (error) {
       throw error;
     }
-  }
+  };
 
   return (
     <Grid width="100%" height="100vh" bg="primary.100">

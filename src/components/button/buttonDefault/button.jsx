@@ -8,7 +8,7 @@ const BtnGeneral = (props) => {
       shadow={8}
       {...props}
     >
-      {props.children}
+
     </Button>
   );
 };

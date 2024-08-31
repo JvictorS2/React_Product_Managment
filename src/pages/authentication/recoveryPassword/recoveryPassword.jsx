@@ -1,12 +1,14 @@
 import "./recoveryPassword.css";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { recoveryPasswordFirebase, verifyLogin } from "../../../utils/auth";
 import { Button, Center, Grid, Heading, Input, Text, VStack } from "../../../components";
+import { MyContext } from "../../../context/statesGlobal";
 
 const RecoveryPassword = (props) => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const { dataGlobal, setDataGlobal } = useContext(MyContext);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
@@ -15,8 +17,9 @@ const RecoveryPassword = (props) => {
 
   const recoveryPassword = async () => {
     // states to Sign in
+    
     try {
-      await recoveryPasswordFirebase(props.auth, email);
+      await recoveryPasswordFirebase(dataGlobal.authFirebase, email);
 
     } catch (error) {
       throw error;

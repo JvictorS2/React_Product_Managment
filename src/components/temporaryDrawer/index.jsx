@@ -6,7 +6,7 @@ import {
   IconButton,
   Text,
   VStack,
-  Divider
+  Divider,
 } from "../../components";
 
 /* Material Drawer */
@@ -17,8 +17,13 @@ import StackedLineChartRoundedIcon from "@mui/icons-material/StackedLineChartRou
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import { logoutFirebase } from "../../utils/auth";
+import { useContext } from "react";
+import { MyContext } from "../../context/statesGlobal";
+
 
 const TemporaryDrawer = (props) => {
+  const { dataGlobal } = useContext(MyContext);
+
   const DrawerList = (
     <Grid
       w="70vw"
@@ -78,7 +83,9 @@ const TemporaryDrawer = (props) => {
           <IconButton
             icon={<ExitToAppRoundedIcon fontSize="large" />}
             color="tertiary.50"
-            onPress={() => logoutFirebase(props.auth, props.navigate)}
+            onPress={() =>
+              logoutFirebase(dataGlobal.authFirebase, props.navigate)
+            }
           />
         </Grid>
       </Grid>
