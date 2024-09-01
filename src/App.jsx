@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ThemeLight } from "./theme/light.jsx";
 import { ThemeDark } from "./theme/dark.jsx";
-import { MyContext } from "./context/statesGlobal.jsx";
+import { globalContext, MyContext } from "./context/statesGlobal.jsx";
 
 /* Routes */
 // export to route
@@ -20,7 +20,7 @@ const Product = lazy(() => import("./pages/Stock/Stock"));
 
 export default function App() {
 
-  const { dataGlobal } = useContext(MyContext);
+  const { dataGlobal } = useContext(globalContext);
 
   return (
     <NativeBaseProvider theme={dataGlobal.darkMode ? ThemeLight : ThemeDark}>

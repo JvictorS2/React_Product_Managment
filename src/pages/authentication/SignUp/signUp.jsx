@@ -16,6 +16,7 @@ import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
 import { signupFirebase, verifyLogin } from "../../../utils/auth";
 import { MyContext } from "../../../context/statesGlobal";
+import { authContext } from "../../../context/authContext";
 
 const SignUp = (props) => {
   // states to Sign in
@@ -23,7 +24,7 @@ const SignUp = (props) => {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const { dataGlobal, setDataGlobal } = useContext(MyContext);
+  const { authStates, setAuthStates } = useContext(authContext);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
@@ -32,7 +33,7 @@ const SignUp = (props) => {
 
   const signup = async () => {
     try {
-      await signupFirebase(dataGlobal.authFirebase, email, password);
+      await signupFirebase(authStates.authFirebase, email, password);
     } catch (error) {
       throw error;
     }

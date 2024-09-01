@@ -18,11 +18,11 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
 import { logoutFirebase } from "../../utils/auth";
 import { useContext } from "react";
-import { MyContext } from "../../context/statesGlobal";
+import { globalContext } from "../../context/statesGlobal";
 
 
 const TemporaryDrawer = (props) => {
-  const { dataGlobal } = useContext(MyContext);
+  const { dataGlobal } = useContext(globalContext);
 
   const DrawerList = (
     <Grid

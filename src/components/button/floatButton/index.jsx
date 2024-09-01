@@ -3,6 +3,7 @@ import { Button } from "native-base";
 const FloatButton = (props) => {
   return (
     <Button
+      
       right={4}
       bottom={4}
       position={"absolute"}
@@ -14,7 +15,7 @@ const FloatButton = (props) => {
       shadow={4}
       {...props}
     >
-      {props.children}
+      
     </Button>
   );
 };

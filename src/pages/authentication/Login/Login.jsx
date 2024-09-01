@@ -15,9 +15,10 @@ import "./Login.css";
 import { loginFirebase, verifyLogin } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { MyContext } from "../../../context/statesGlobal";
+import { authContext } from "../../../context/authContext";
 
 const Login = () => {
-  const { dataGlobal, setDataGlobal } = useContext(MyContext);
+  const { authStates, setAuthStates } = useContext(authContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const Login = () => {
     try {
       // realizar o processo de login
       const response = await loginFirebase(
-        dataGlobal.authFirebase,
+        authStates.authFirebase,
         email,
         password
       );

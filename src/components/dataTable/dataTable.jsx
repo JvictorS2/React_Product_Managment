@@ -1,22 +1,23 @@
 import { FlatList } from "native-base";
-import { Divider, FloatBtn, Grid, HStack, IconButton, Text } from "..";
+import { Divider, FloatBtn, Grid, HStack, IconButton, Modal, ModalCreateProduct, Text } from "..";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import {  useState } from "react";
+
+
 /* 
-========================================================================================
-
   Tabela para visualização de dados durante o uso da API firebase ou outras
-
-========================================================================================
 */
 
-const DataTable = (props) => {
+const DataTable = ({HeadTable,data}) => {
   // Cabeçalho da tabela
+  const [openModal, setOpenModal] = useState(false);
+
 
   const CheadTable = () => {
     return (
       <HStack justifyContent="space-between">
-        {props.HeadTable.map((item, index) => (
+        {HeadTable.map((item, index) => (
           <Grid py={3} key={index} flex={item.size}>
             <Text textAlign="center" bold>
               {item.name}
@@ -29,12 +30,11 @@ const DataTable = (props) => {
   // Item da tabela
   const CiItemTable = ({ item }) => {
     const valuesArray = Object.values(item);
-
     return (
       <>
         <HStack m={3} justifyContent="space-between">
           {valuesArray.map((item, index) => (
-            <Grid py={1} key={index} flex={props.HeadTable[index].size}>
+            <Grid py={1} key={index} flex={HeadTable[index].size}>
               <Text textAlign="center">{item}</Text>
             </Grid>
           ))}
@@ -57,17 +57,21 @@ const DataTable = (props) => {
         <Divider mb={2} />
         {/* Redenriza os itens da tabela */}
         <FlatList
-          data={props.data}
+          data={data}
           renderItem={CiItemTable}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.ID}
         />
       </Grid>
-      <FloatBtn bg={"secondary.100"}>
+      <FloatBtn onPress={() => setOpenModal(true)} bg={"secondary.100"}>
         <IconButton
           icon={<AddRoundedIcon fontSize="large" />}
-          color="text.100"
+          color="#FEF7FF"
+          pointerEvents="none"
         />
       </FloatBtn>
+      <Modal open={openModal} setOpen={setOpenModal}>
+        <ModalCreateProduct></ModalCreateProduct>
+      </Modal>
     </>
   );
 };

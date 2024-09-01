@@ -2,11 +2,11 @@
 import { Grid, IconButton } from "../../components";
 
 import React, { useContext } from "react";
-import { MyContext } from "../../context/statesGlobal";
+import { globalContext, MyContext } from "../../context/statesGlobal";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 const ToggleDarkMode = () => {
-  const { dataGlobal, setDataGlobal } = useContext(MyContext);
+   const { dataGlobal, setDataGlobal } = useContext(globalContext);
 
   return (
     <Grid justifyContent="center" >

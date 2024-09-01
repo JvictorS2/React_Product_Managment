@@ -3,13 +3,16 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import reportWebVitals from "./reportWebVitals.js";
-import { MyProvider } from "./context/statesGlobal.jsx";
+import { GlobalProvider } from "./context/statesGlobal.jsx";
+import { AuthProvider } from "./context/authContext.jsx";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <MyProvider>
-    <App />
-  </MyProvider>
+  <GlobalProvider>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </GlobalProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
