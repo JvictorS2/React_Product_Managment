@@ -7,6 +7,7 @@ const BtnGeneral = (props) => {
       borderRadius="full"
       shadow={8}
       {...props}
+      
     >
       {props.children}
     </Button>

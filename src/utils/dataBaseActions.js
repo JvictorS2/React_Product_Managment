@@ -1,60 +1,72 @@
-import { onValue, ref, remove, set } from "firebase/database";
+import { get, getDatabase, onValue, ref, remove, set } from "firebase/database";
 
-const writeUserData = async (db, uid, email) => {
+const db = getDatabase();
+
+//gera um código para criptografar o id
+const generateUUID = () => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
+    const r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
+//Salva um registro na tabela informada
+const saveData = async (uid, table, data) => {
+  const id = generateUUID();
+
   try {
-    const idFinal = await findCurrentId(db, uid);
-    const idCurrent = parseInt(idFinal[idFinal.length - 1], 10);
-
-    const dbRef = ref(db, `users/${uid}/products/${idCurrent + 1}`);
-
-    set(dbRef, {
-      ID: idCurrent + 1,
-      email: "vssimoes@gamil.com",
+    await set(ref(db, `users/${uid}/${table}/${id}`), {
+    email: "vssimoes@gamil.com",
     });
-
-    alert("ok");
+    
   } catch (error) {
-    throw error;
+    throw error
   }
 };
 
-// Função para ler dados do usuário
-const readUserData = (db, uid, setData) => {
-  const dbRef = ref(db, `users/${uid}/products`);
-
-  onValue(dbRef, (snapshot) => {
-    const dado = snapshot.val();
-    setData(dado);
+//Atualiza um registro
+const updateData = async (uid, table, data, id) => {
+  await set(ref(db, `users/${uid}/${table}/${id}`), {
+    email: "accudi@gamil.com",
   });
 };
 
-/* remover o resgrito */
-const removeUserData = async (db, uid, id) => {
-  const dbRef = ref(db, `users/${uid}/products/${id}`);
-  await remove(dbRef);
+//Deleta um registro setando seu valor para null
+const deleteData = async (uid, table, id) => {
+  await set(ref(db, `users/${uid}/${table}/${id}`), null);
 };
 
-/*Encontra o id do ultimo produto, Para garantir que a função irá atribuir o valor antes de continuar está função retorná uma promise */
-const findCurrentId = async (db, uid) => {
-  return new Promise((resolve, reject) => {
-    const dbRef = ref(db, "users/" + uid);
+//R
+const getAllData = async (uid,table) => {
+  const snapshot = await get(ref(db, `users/${uid}/${table}`));
+ 
+  if (snapshot.exists()) {
+    const data = snapshot.val(); // retorna um json de json
+   
+    const keys = Object.keys(data);
+    const result = [];
+    // converte o retorno do snapshot em um array de json 
+    keys.forEach((key) => {
+      result.push({
+        id: key,
+        ...data[key],
+      });
+    });
 
-    onValue(
-      dbRef,
-      (snapshot) => {
-        const key = snapshot.val();
-        if (key !== undefined) {
-          const id = Object.keys(key.products);
-          resolve(id); // Resolve a promessa com o valor de idCurrent
-        } else {
-          reject("ID não encontrado");
-        }
-      },
-      (error) => {
-        reject(error); // Rejeita a promessa em caso de erro
-      }
-    );
-  });
+    return result;
+  }
+  return 0;
 };
 
-export { writeUserData, readUserData, removeUserData };
+//Recuperar os dados de um registro especifico
+const getData = async (uid,table, id) => {
+  const snapshot = await get(ref(db, `users/${uid}/${table}/${id}`));
+  if (snapshot.exists()) {
+    return snapshot.val();
+  }
+  return null;
+};
+
+
+export { saveData, updateData, deleteData, getAllData, getData };

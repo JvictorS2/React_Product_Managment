@@ -9,14 +9,14 @@ const ToggleDarkMode = () => {
    const { dataGlobal, setDataGlobal } = useContext(globalContext);
 
   return (
-    <Grid justifyContent="center" >
-      <Grid  py={2} flexDirection="row" justifyContent="space-between">
+    <Grid justifyContent="center">
+      <Grid py={2} flexDirection="row" justifyContent="space-between">
         <IconButton
           icon={
             dataGlobal.darkMode ? (
-              <WbSunnyIcon fontSize="large" />
-            ) : (
               <DarkModeIcon fontSize="large" />
+            ) : (
+              <WbSunnyIcon fontSize="large" />
             )
           }
           onPress={() =>

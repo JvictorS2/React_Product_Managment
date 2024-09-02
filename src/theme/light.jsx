@@ -15,7 +15,7 @@ const ThemeLight = extendTheme({
     },
     tertiary: {
       50: "#A85462",
-      100: "#a4161a",
+      100: "#cdb4db",
     },
     text: {
       50: "#FEF7FF" /* texto junto da cor secundária */,

@@ -1,9 +1,10 @@
 import { Input } from "native-base";
 
 
-const InputNativeBase = (props) => {
+const InputNativeBase = (props,{register}) => {
     return (
       <Input
+  
         {...props}
         size="xl"
         borderRadius="lg"
@@ -11,6 +12,7 @@ const InputNativeBase = (props) => {
             bg="#fff"
             shadow={8}
       />
+
     );
 }
 

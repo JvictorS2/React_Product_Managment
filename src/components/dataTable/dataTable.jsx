@@ -1,18 +1,16 @@
 import { FlatList } from "native-base";
-import { Divider, FloatBtn, Grid, HStack, IconButton, Modal, ModalCreateProduct, Text } from "..";
+import { Divider, FloatBtn, Grid, HStack, IconButton, Text } from "..";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import {  useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 
 /* 
   Tabela para visualização de dados durante o uso da API firebase ou outras
 */
 
-const DataTable = ({HeadTable,data}) => {
+const DataTable = ({ HeadTable, data }) => {
+  const navigate = useNavigate();
   // Cabeçalho da tabela
-  const [openModal, setOpenModal] = useState(false);
-
 
   const CheadTable = () => {
     return (
@@ -42,6 +40,7 @@ const DataTable = ({HeadTable,data}) => {
             <IconButton
               icon={<MoreHorizIcon fontSize="large" />}
               color="secondary.200"
+              onPress={() => navigate(`/Product/Details/${item.id}`)}
             />
           </Grid>
         </HStack>
@@ -56,22 +55,29 @@ const DataTable = ({HeadTable,data}) => {
         <CheadTable></CheadTable>
         <Divider mb={2} />
         {/* Redenriza os itens da tabela */}
-        <FlatList
-          data={data}
-          renderItem={CiItemTable}
-          keyExtractor={(item) => item.ID}
-        />
+        {data != null ? (
+          <FlatList
+            data={data}
+            renderItem={CiItemTable}
+            keyExtractor={(item) => item.ID}
+          />
+        ) : (
+          ""
+        )}
       </Grid>
-      <FloatBtn onPress={() => setOpenModal(true)} bg={"secondary.100"}>
+      <FloatBtn
+        position={"absolute"}
+        right={4}
+        bottom={4}
+        onPress={() => navigate("/Product/new")}
+        bg={"secondary.100"}
+      >
         <IconButton
           icon={<AddRoundedIcon fontSize="large" />}
           color="#FEF7FF"
           pointerEvents="none"
         />
       </FloatBtn>
-      <Modal open={openModal} setOpen={setOpenModal}>
-        <ModalCreateProduct></ModalCreateProduct>
-      </Modal>
     </>
   );
 };

@@ -16,6 +16,7 @@ const ThemeDark = extendTheme({
     },
     tertiary: {
       50: "#A85462",
+      100: "#cdb4db",
     },
     text: {
       50: "#171717" /* texto junto da cor secundária */,
