@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { ThemeLight } from "./theme/light.jsx";
 import { ThemeDark } from "./theme/dark.jsx";
-import { globalContext, MyContext } from "./context/statesGlobal.jsx";
+import { globalContext } from "./context/statesGlobal.jsx";
 
 /* Routes */
 // export to route

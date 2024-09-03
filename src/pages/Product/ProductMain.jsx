@@ -2,12 +2,11 @@
 import { useContext, useEffect, useState } from "react";
 /* my */
 import { verifyLogin } from "../../utils/auth";
-import { Button, DataTable, Grid, NavBar } from "../../components";
+import { DataTable, Grid, NavBar } from "../../components";
 /* Externo */
 import { authContext } from "../../context/authContext";
-import { deleteData, getAllData, updateData } from "../../utils/dataBaseActions";
+import { getAllData } from "../../utils/dataBaseActions";
 import { useNavigate } from "react-router-dom";
-import { update } from "firebase/database";
 
 const Stock = () => {
   const navigate = useNavigate();
@@ -16,8 +15,12 @@ const Stock = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const Load = async () => {
-    const response = await getAllData(authStates.uid, "products");
-    setData(response);
+    try {
+      const response = await getAllData(authStates.uid, "products");
+      FilterData(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
@@ -28,8 +31,7 @@ const Stock = () => {
   /* Receber os dados da API e seta em um estado */
   useEffect(() => {
     setIsLoading(true);
-    Load()
-    
+    Load();
   }, []);
 
   /* Monitora o Loading */
@@ -38,15 +40,29 @@ const Stock = () => {
   }, [data]);
 
   const HeadTable = [
-    { name: "ID", size: 4 },
-    { name: "email", size: 20 },
+    {name: 'id'},
+    { name: "name", size: 20 },
+    { name: "price", size: 6 },
     { name: "Detalhe", size: 6 },
   ];
+
+  const FilterData = async (data) => {
+    const keysToKeep = [];
+
+    HeadTable.forEach((item) => keysToKeep.push(item.name));
+
+    const filteredObject = await data.map((item, index) =>
+      Object.fromEntries(
+        Object.entries(item).filter(([key]) => keysToKeep.includes(key))
+      )
+    );
+    setData(filteredObject);
+  };
 
   return (
     <Grid bg="primary.100" h="100vh">
       <NavBar navigate={navigate}></NavBar>
-     
+
       {isLoading ? (
         ""
       ) : (

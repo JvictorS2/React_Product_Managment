@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { recoveryPasswordFirebase, verifyLogin } from "../../../utils/auth";
 import { Button, Center, Grid, Heading, Input, Text, VStack } from "../../../components";
-import { MyContext } from "../../../context/statesGlobal";
 import { authContext } from "../../../context/authContext";
 
-const RecoveryPassword = (props) => {
+const RecoveryPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const { authStates, setAuthStates } = useContext(authContext);
+  const { authStates } = useContext(authContext);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {

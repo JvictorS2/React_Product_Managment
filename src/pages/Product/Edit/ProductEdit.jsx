@@ -10,23 +10,57 @@ import {
 } from "../../../components/";
 
 import { Controller, useForm } from "react-hook-form";
-import { saveData } from "../../../utils/dataBaseActions";
-import { useContext } from "react";
+import {  getData, updateData } from "../../../utils/dataBaseActions";
+import { useContext, useEffect } from "react";
 import { authContext } from "../../../context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
 import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
+import { verifyLogin } from "../../../utils/auth";
 
 const ProductEdit = () => {
+  const { handleSubmit, control, setValue } = useForm();
   const navigate = useNavigate();
   const { id } = useParams();
-  const {  handleSubmit, control } = useForm();
   const { authStates } = useContext(authContext);
-  const addProduct = (data) => {
-    saveData(authStates.uid, "products");
+
+
+  const load = async () => {
+    const response = await getData(authStates.uid, "products/", id);
+    setDatas(response);
+  };
+
+  useEffect(() => {
+    verifyLogin(navigate);
+  }, []);
+
+  /* Receber os dados da API e seta em um estado  */
+  useEffect(() => {
+    load();
+  }, []);
+
+  /* Trazer dados registrados para editar */
+  const setDatas = (data) => {
+    setValue('name', data.name)
+    setValue('category', data.category)
+    setValue("price", data.price);
+    setValue("weight", data.weight);
+    setValue("stock", data.stock);
+    setValue("provider", data.provider);
+    setValue("validateDate", data.validateDate);
+    setValue("isFavorite", data.isFavorite);
+    setValue("dimensions.height", data.dimensions.height);
+    setValue("dimensions.width", data.dimensions.width);
+    setValue("dimensions.length", data.dimensions.length);
+  }
+
+  /* Atualizar produto */
+  const updateProduct = async (data) => {
+    await updateData(authStates.uid, "products", id, data);
+    navigate(`/Product/Details/${id}`);
   };
 
   return (
-    <Grid>
+    <Grid h="100vh" bg="primary.100">
       <NavBar navigate={navigate}></NavBar>
       <Grid px={8} py={4} bg="primary.100">
         <form>
@@ -149,7 +183,7 @@ const ProductEdit = () => {
 
             <Grid gap={2}>
               <Divider />
-              <Button onPress={handleSubmit(addProduct)}>
+              <Button onPress={handleSubmit(updateProduct)}>
                 <Text>Editar produto</Text>
               </Button>
             </Grid>

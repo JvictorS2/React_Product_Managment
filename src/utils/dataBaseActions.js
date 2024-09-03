@@ -1,4 +1,4 @@
-import { get, getDatabase, onValue, ref, remove, set } from "firebase/database";
+import { get, getDatabase, ref, set } from "firebase/database";
 
 const db = getDatabase();
 
@@ -16,9 +16,7 @@ const saveData = async (uid, table, data) => {
   const id = generateUUID();
 
   try {
-    await set(ref(db, `users/${uid}/${table}/${id}`), {
-    email: "vssimoes@gamil.com",
-    });
+    await set(ref(db, `users/${uid}/${table}/${id}`), data);
     
   } catch (error) {
     throw error
@@ -26,10 +24,8 @@ const saveData = async (uid, table, data) => {
 };
 
 //Atualiza um registro
-const updateData = async (uid, table, data, id) => {
-  await set(ref(db, `users/${uid}/${table}/${id}`), {
-    email: "accudi@gamil.com",
-  });
+const updateData = async (uid, table, id,data) => {
+  await set(ref(db, `users/${uid}/${table}/${id}`), data);
 };
 
 //Deleta um registro setando seu valor para null

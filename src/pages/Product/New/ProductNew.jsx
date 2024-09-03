@@ -18,17 +18,23 @@ import UndoRoundedIcon from "@mui/icons-material/UndoRounded";
 
 const ProductNew = () => {
   const navigate = useNavigate();
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, setValue } = useForm();
   const { authStates } = useContext(authContext);
+
+  setValue("isFavorite", false);
+
   const addProduct = (data) => {
-    saveData(authStates.uid, "products");
+    
+    saveData(authStates.uid, "products", data);
     navigate('/product')
+   
+    
   };
 
   return (
-    <Grid>
+    <Grid h="100vh" bg="primary.100">
       <NavBar navigate={navigate}></NavBar>
-      <Grid px={8} py={4} bg="primary.100">
+      <Grid px={8} py={4}>
         <form>
           <Grid flex={1} gap={6}>
             <Grid gap={2}>

@@ -15,13 +15,18 @@ const DataTable = ({ HeadTable, data }) => {
   const CheadTable = () => {
     return (
       <HStack justifyContent="space-between">
-        {HeadTable.map((item, index) => (
-          <Grid py={3} key={index} flex={item.size}>
-            <Text textAlign="center" bold>
-              {item.name}
-            </Text>
-          </Grid>
-        ))}
+        {HeadTable.map((item, index) =>
+          /* Bloqueia o acesso ao id */
+          item.name !== "id" ? (
+            <Grid py={3} key={index} flex={item.size}>
+              <Text textAlign="center" bold>
+                {item.name}
+              </Text>
+            </Grid>
+          ) : (
+            ""
+          )
+        )}
       </HStack>
     );
   };
@@ -31,11 +36,23 @@ const DataTable = ({ HeadTable, data }) => {
     return (
       <>
         <HStack m={3} justifyContent="space-between">
-          {valuesArray.map((item, index) => (
-            <Grid py={1} key={index} flex={HeadTable[index].size}>
-              <Text textAlign="center">{item}</Text>
-            </Grid>
-          ))}
+          {valuesArray.map((item, index) =>
+            /* Bloqueia o acesso ao id */
+            HeadTable[index].name !== "id" ? (
+              <Grid py={1} key={index} flex={HeadTable[index].size}>
+                <Text textAlign="center">
+                  {/* Verifica se pricisa do R$ na frente caso seja valor */}
+                  {HeadTable[index].name === "price" ? (
+                    <>R$ {item}</>
+                  ) : (
+                    <>{item}</>
+                  )}
+                </Text>
+              </Grid>
+            ) : (
+              ""
+            )
+          )}
           <Grid alignItems="center" flex={6}>
             <IconButton
               icon={<MoreHorizIcon fontSize="large" />}
@@ -59,7 +76,7 @@ const DataTable = ({ HeadTable, data }) => {
           <FlatList
             data={data}
             renderItem={CiItemTable}
-            keyExtractor={(item) => item.ID}
+            keyExtractor={(item) => item.id}
           />
         ) : (
           ""
