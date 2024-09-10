@@ -2,7 +2,7 @@ import { Box } from "native-base"
 
 const BoxNativeBase = (props) => {
     return (
-        <Box  {...props} >
+        <Box   {...props} >
             {props.children}
         </Box>
     )

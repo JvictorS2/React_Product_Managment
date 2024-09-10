@@ -5,8 +5,8 @@ const ThemeDark = extendTheme({
   colors: {
     // Add new color
     primary: {
-      50: "#212121" /* constrate */,
-      100: "#2F2F2F" /* cor principal */,
+      50: "",
+      100: "#0a0908" /* cor principal */,
       200: "#000" /* branco puro */,
     },
     secondary: {
@@ -15,8 +15,10 @@ const ThemeDark = extendTheme({
       200: "#fafafa",
     },
     tertiary: {
-      50: "#A85462",
-      100: "#cdb4db",
+      100: "#cdb4db", //edit button
+      200: "#ef233c", //delete button
+      300: "rgba(2, 48, 71, 0.7)", //tela de login contraste (md,lg,xl)
+      400: "#ccc000",
     },
     text: {
       50: "#171717" /* texto junto da cor secundária */,

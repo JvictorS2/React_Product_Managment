@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { authContext } from "../../../../context/authContext";
 
 const ModalCreateProduct = () => {
-  const { register, handleSubmit, control } = useForm();
+  const {  handleSubmit, control } = useForm();
   const { authStates } = useContext(authContext);
   const addProduct = (data) => {
     saveData(authStates.uid, "products");
@@ -25,7 +25,7 @@ const ModalCreateProduct = () => {
       overflowY="scroll"
       style={{ transform: "translate(-50%, -50%)" }}
     >
-      <form>
+      {/* <form>
         <Grid flex={1} gap={6}>
           <Grid gap={2}>
             <Heading textAlign="center">Cadastar produto</Heading>
@@ -146,7 +146,7 @@ const ModalCreateProduct = () => {
             </Button>
           </Grid>
         </Grid>
-      </form>
+      </form> */}
     </Grid>
   );
 };

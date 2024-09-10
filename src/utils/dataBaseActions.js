@@ -36,10 +36,9 @@ const deleteData = async (uid, table, id) => {
 //R
 const getAllData = async (uid,table) => {
   const snapshot = await get(ref(db, `users/${uid}/${table}`));
- 
   if (snapshot.exists()) {
     const data = snapshot.val(); // retorna um json de json
-   
+    
     const keys = Object.keys(data);
     const result = [];
     // converte o retorno do snapshot em um array de json 

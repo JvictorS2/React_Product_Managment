@@ -7,6 +7,8 @@ import {
   Text,
   VStack,
   Divider,
+  ToggleDarkMode,
+  Logout,
 } from "../../../components";
 
 /* Material Drawer */
@@ -15,18 +17,15 @@ import Drawer from "@mui/material/Drawer";
 import LocalGroceryStoreRoundedIcon from "@mui/icons-material/LocalGroceryStoreRounded";
 import StackedLineChartRoundedIcon from "@mui/icons-material/StackedLineChartRounded";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import ExitToAppRoundedIcon from "@mui/icons-material/ExitToAppRounded";
-import { logoutFirebase } from "../../../utils/auth";
-import { useContext } from "react";
-import { authContext } from "../../../context/authContext";
+import CloseIcon from "@mui/icons-material/Close";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 
 
 const TemporaryDrawer = (props) => {
-  const { authStates } = useContext(authContext);
 
   const DrawerList = (
     <Grid
-      w="70vw"
+      w={{ base: "100vw", md: "50vw", lg: "30vw", xl: "25vw" }}
       flex={1}
       bg="primary.100"
       onPress={() => props.setOpen(!props.open)}
@@ -53,7 +52,7 @@ const TemporaryDrawer = (props) => {
             onPress={() => props.navigate("/")}
           />
           <Text onPress={() => props.navigate("/")} bold>
-            Ínicio{" "}
+            Ínicio
           </Text>
         </Grid>
         <Grid flexDirection="row" alignItems="center">
@@ -66,9 +65,19 @@ const TemporaryDrawer = (props) => {
             Estoque
           </Text>
         </Grid>
+        <Grid flexDirection="row" alignItems="center">
+          <IconButton
+            icon={<AddToPhotosIcon />}
+            color="secondary.200"
+            onPress={() => props.navigate("/product/new")}
+          />
+          <Text onPress={() => props.navigate("/product/new")} bold>
+            Adicionar produto
+          </Text>
+        </Grid>
       </VStack>
       <Divider m={4} w="70wv" />
-      <Grid flexDirection="row" alignItems="center" px={2} flex={3}>
+      <Grid flexDirection="row" alignItems="center" gap={3} px={2} flex={3}>
         <Avatar
           source={{
             uri: "https://avatars.githubusercontent.com/u/106039120?s=400&u=733cda27eede61bc38d61fc23a765bdd198c3d7e&v=4",
@@ -80,14 +89,23 @@ const TemporaryDrawer = (props) => {
           <Text fontSize="xs">vssimoesdunck@gmail.com</Text>
         </Grid>
         <Grid>
-          <IconButton
-            icon={<ExitToAppRoundedIcon fontSize="large" />}
-            color="tertiary.50"
-            onPress={() =>
-              logoutFirebase(authStates.authFirebase, props.navigate)
-            }
-          />
+          <Logout navigate={props.navigate}></Logout>
         </Grid>
+      </Grid>
+      <Grid
+        position="absolute"
+        w="100%"
+        flexDirection="row"
+        alignItems="center"
+        p={2}
+        justifyContent="space-between"
+      >
+        <IconButton
+          icon={<CloseIcon fontSize="large" />}
+          onPress={() => props.setOpen(!props.open)}
+          color="secondary.200"
+        ></IconButton>
+        <ToggleDarkMode></ToggleDarkMode>
       </Grid>
     </Grid>
   );

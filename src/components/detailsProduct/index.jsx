@@ -14,63 +14,65 @@ const DetailsProduct = ({ data, id }) => {
     await deleteData(authStates.uid, "products", id);
     navigate("/product");
   };
-  console.log(data);
+
   return (
-    <Grid p={2} flex={1}>
-      <Grid>
+    <Grid p={2} flex={1} borderRadius={2}>
+      <Grid p={3} mb={1} bg="secondary.100">
         <Heading textAlign="center">Detalhes do produto</Heading>
-        <Divider my={2} />
       </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Nome:</Text> {data.name}
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Categoria:</Text> {data.category}
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Preço:</Text> R$ {data.price}
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Peso:</Text> {data.weight} Kg
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Fornecedor:</Text> {data.provider}
-        </Text>
-        <Divider my={1} />
+      <Grid mx={2}>
+        <Grid>
+          <Text>
+            <Text bold>Nome:</Text> {data.name}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Categoria:</Text> {data.category}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Preço:</Text> R$ {data.price}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Peso:</Text> {data.weight} Kg
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Fornecedor:</Text> {data.provider}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+
+        <Grid>
+          <Text>
+            <Text bold>Quantidade em estoque:</Text> {data.stock}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Data de válidade:</Text> {data.validateDate}
+          </Text>
+          <Divider my={1} />
+        </Grid>
+        <Grid>
+          <Text>
+            <Text bold>Medidas:</Text> {data.dimensions.length} cm X{" "}
+            {data.dimensions.height} cm X {data.dimensions.width} cm
+          </Text>
+          <Divider my={1} />
+        </Grid>
       </Grid>
 
-      <Grid>
-        <Text>
-          <Text bold>Quantidade em estoque:</Text> {data.stock}
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Data de válidade:</Text> {data.validateDate}
-        </Text>
-        <Divider my={1} />
-      </Grid>
-      <Grid>
-        <Text>
-          <Text bold>Medidas:</Text> {data.dimensions.length} cm X{" "}
-          {data.dimensions.height} cm X {data.dimensions.width} cm
-        </Text>
-        <Divider my={1} />
-      </Grid>
       <Grid
         position="absolute"
         flexDirection="row"
@@ -78,7 +80,7 @@ const DetailsProduct = ({ data, id }) => {
         bottom={4}
         right={4}
       >
-        <FloatBtn onPress={deleteProduct} bg={"tertiary.50"}>
+        <FloatBtn onPress={deleteProduct} bg={"tertiary.200"}>
           <IconButton
             icon={<DeleteRoundedIcon fontSize="large" />}
             color="#FEF7FF"

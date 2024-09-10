@@ -1,0 +1,64 @@
+# Teste da Rest API do firebase usando o realtimeDataBase
+
+#OBS: o fluxo da Url está ordenado começando de cima para baixo
+#OBS : É necessário ter o plugin Client Rest instalado para realizar as requisições
+@BaseUrl = https://project-managment-2024-8f5b1-default-rtdb.firebaseio.com
+
+@resource = users
+
+@resourceUser = User
+
+@resourceProducts = products
+
+# Este Id ele muda conforme as requisições são feitas
+@resourceId = -O5z9ZzTwtywC8gf66oV 
+
+# Listar todos os dados da banco de dadows
+GET {{BaseUrl}}/{{resource}}.json
+
+### (necessário para fechar o body da request)
+
+# Listar todos os dados do usuário principal
+GET {{BaseUrl}}/{{resource}}/{{resourceUser}}.json
+
+###
+
+# Adicionar registro ao usuário principal 
+POST {{BaseUrl}}//{{resource}}/{{resourceUser}}/{{resourceProducts}}.json
+Content-Type: application/json
+
+{
+   "id":1,
+   "nome":"Suco de uva",
+   "category":"Suco"
+     
+}
+
+###
+
+# Atualizar um registro especifivo do usuário principal 
+PUT  {{BaseUrl}}//{{resource}}/{{resourceUser}}/{{resourceProducts}}/{{resourceId}}.json
+
+{
+    "category": "Test",
+      "dimensions": {
+        "height": "30",
+        "length": "24",
+        "width": "12"
+    },
+    "isFavorite": false,
+    "name": "Suco Maça Marata",
+    "price": "1.30",
+    "provider": "Marata",
+    "stock": "2",
+    "validateDate": "18/07/2025",
+    "weight": "0.2" 
+}
+
+###
+
+# Remove um registro especifivo do usuário principal 
+DELETE {{BaseUrl}}//{{resource}}/{{resourceUser}}/{{resourceProducts}}/{{resourceId}}.json
+
+###
+

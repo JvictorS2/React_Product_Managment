@@ -3,6 +3,7 @@ import {
   IconButton,
   NavBar,
   Details,
+  SpinnerPage,
 } from "../../../components/";
 
 import { getData } from "../../../utils/dataBaseActions";
@@ -43,14 +44,15 @@ const ProductDetails = () => {
     <Grid bg="primary.100" h="100vh">
       <NavBar navigate={navigate}></NavBar>
 
-      {isLoading ? "" : <Details data={data}  id={id} ></Details>}
+      {isLoading ? <SpinnerPage/> : <Details data={data}  id={id} ></Details>}
       <IconButton
         position="absolute"
         left={16}
-        top={2}
+        top={4}
         icon={<UndoRoundedIcon fontSize="large" />}
         onPress={() => navigate("/product")}
         color="secondary.200"
+        
       ></IconButton>
     </Grid>
   );

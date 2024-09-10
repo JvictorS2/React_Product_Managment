@@ -1,12 +1,26 @@
 import "./recoveryPassword.css";
 import { useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { recoveryPasswordFirebase, verifyLogin } from "../../../utils/auth";
-import { Button, Center, Grid, Heading, Input, Text, VStack } from "../../../components";
+import {
+  Button,
+  Center,
+  Grid,
+  Heading,
+  IconButton,
+  ImagePage,
+  LabelInput,
+  Text,
+  VStack,
+} from "../../../components";
 import { authContext } from "../../../context/authContext";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+import EmailIcon from "@mui/icons-material/Email";
 
 const RecoveryPassword = () => {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const { authStates } = useContext(authContext);
 
@@ -15,60 +29,97 @@ const RecoveryPassword = () => {
     verifyLogin(navigate);
   }, []);
 
-  const recoveryPassword = async () => {
-    // states to Sign in
-    
-    try {
-      await recoveryPasswordFirebase(authStates.authFirebase, email);
+    const schema = yup
+      .object({
+        emailRecovery: yup
+          .string("Valor inválido")
+          .email("O campo precisa ser um email válido ex: react@gmail.com")
+          .required("Campo obrigatório"),
+        password: yup.string("Valor inválido").required("Campo obrigatório"),
+      })
+      .required();
 
+    const {
+      control,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: yupResolver(schema),
+    });
+
+  const recoveryPassword = async (data) => {
+    // states to Sign in
+
+    try {
+      await recoveryPasswordFirebase(authStates.authFirebase, data.emailRecovery);
     } catch (error) {
       throw error;
     }
   };
 
   return (
-    <Grid width="100%" height="100vh" bg="primary.100">
-      <form onSubmit={(event) => event.preventDefault}>
-        <Center height="100vh">
-          <VStack flex={1} p={50} borderRadius="md" space={2}>
-            <Grid justifyContent="center" flexGrow={4}>
-              <Heading fontSize="4xl" alignSelf="center">
-                Recuperar senha
-              </Heading>
-            </Grid>
-            <VStack space={6}>
-              <Grid>
-                <Input
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="Insira seu email"
-                />
+    <Grid width="100%" height="100vh">
+      <Grid
+        w={{ base: "100%", lg: "50%", xl: "40%" }}
+        bg={{ base: "primary.100", md: "" }}
+        zIndex={1}
+        alignSelf="end"
+      >
+        <form>
+          <Center height="100vh">
+            <VStack
+              bg={{ md: "tertiary.300" }}
+              p={{ base: 6, md: 16, xl: 38 }}
+              borderRadius={8}
+              opacity={0.9}
+              space={12}
+            >
+              <Grid justifyContent="center" flexGrow={4}>
+                <Heading fontSize="4xl" alignSelf="center">
+                  Recuperar senha
+                </Heading>
               </Grid>
-              <Grid>
-                <Button
-                  size="md"
-                  width="70%"
-                  alignSelf="center"
-                  onPress={recoveryPassword}
+              <VStack space={4}>
+                <LabelInput
+                  control={control}
+                  name={"emailRecovery"}
+                  placeholder="Insira o email de recuperação"
+                  title="Email de recuperação"
+                  errorMessage={errors.emailRecovery?.message}
+                  InputLeftElement={
+                    <IconButton
+                      icon={<EmailIcon />}
+                      size={5}
+                      mx="2"
+                      color="muted.400"
+                    />
+                  }
+                ></LabelInput>
+
+                <Grid>
+                  <Button
+                    alignSelf="center"
+                    onPress={handleSubmit(recoveryPassword)}
+                  >
+                    Enviar solicitação
+                  </Button>
+                </Grid>
+              </VStack>
+              <Grid justifyContent="end" flexGrow={10}>
+                <Text
+                  alignSelf="end"
+                  cursor="pointer"
+                  textDecorationLine="underline"
+                  onPress={() => navigate("/login")}
                 >
-                  <Text>Enviar solicitação</Text>
-                </Button>
+                  Login
+                </Text>
               </Grid>
             </VStack>
-            <Grid justifyContent="end" flexGrow={10}>
-              <Text
-                bold
-                alignSelf="center"
-                fontSize="2xl"
-                cursor="pointer"
-                onPress={() => navigate("/login")}
-              >
-                Login
-              </Text>
-            </Grid>
-          </VStack>
-        </Center>
-      </form>
+          </Center>
+        </form>
+      </Grid>
+      <ImagePage></ImagePage>
     </Grid>
   );
 };

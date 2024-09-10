@@ -12,8 +12,7 @@ const globalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
   const [dataGlobal, setDataGlobal] = useState({
-    darkMode: false,
-    navBarOn:false
+    darkMode: false
   });
 
   return (

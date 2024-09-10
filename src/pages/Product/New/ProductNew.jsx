@@ -7,9 +7,10 @@ import {
   Divider,
   IconButton,
   NavBar,
+  LabelInput,
 } from "../../../components/";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { saveData } from "../../../utils/dataBaseActions";
 import { useContext } from "react";
 import { authContext } from "../../../context/authContext";
@@ -24,152 +25,116 @@ const ProductNew = () => {
   setValue("isFavorite", false);
 
   const addProduct = (data) => {
-    
+    console.log(data);
     saveData(authStates.uid, "products", data);
-    navigate('/product')
-   
-    
+    navigate("/product");
   };
 
   return (
     <Grid h="100vh" bg="primary.100">
       <NavBar navigate={navigate}></NavBar>
-      <Grid px={8} py={4}>
+      <Grid px={12} py={8} bg="primary.100">
         <form>
-          <Grid flex={1} gap={6}>
+          <Grid gap={2}>
             <Grid gap={2}>
-              <Heading textAlign="center">Cadastar produto</Heading>
+              <Heading textAlign="center">Cadastrar produto</Heading>
               <Divider />
             </Grid>
-
-            <Controller
-              control={control}
-              name="name"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Nome"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="category"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Categoria"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="price"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Preço(R$)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="weight"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Peso(Kg)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="stock"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Quantidade em estoque"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="validateDate"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Data de válidade(dd/mm/aaaa)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="provider"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Fornecedor"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="dimensions.height"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Altura(cm)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="dimensions.length"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Comprimento(cm)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
-            <Controller
-              control={control}
-              name="dimensions.width"
-              render={({ field: { onChange, value } }) => (
-                <Input
-                  placeholder="Largura(cm)"
-                  onChangeText={onChange}
-                  value={value}
-                />
-              )}
-            />
+            <Grid
+              flexDirection={{ base: "column", md: "row" }}
+              justifyContent={{ md: "space-between" }}
+              flexWrap={{ md: "wrap" }}
+            >
+              <LabelInput
+                control={control}
+                name="name"
+                placeholder="Nome"
+                title="Nome"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="category"
+                placeholder="Categoria"
+                title="Categoria"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="price"
+                placeholder="Preço(R$)"
+                title="Preço"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="weight"
+                placeholder="Peso(Kg)"
+                title="Peso"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="stock"
+                placeholder="Quantidade em estoque"
+                title="Quantidade em estoque"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="validateDate"
+                placeholder="Data de válidade(dd/mm/aaaa)"
+                title="Data de validade"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="provider"
+                placeholder="Fornecedor"
+                title="Fornecedor"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="dimensions.height"
+                placeholder="Altura(cm)"
+                title="Altura"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="dimensions.length"
+                placeholder="Comprimento(cm)"
+                title="Comprimento"
+                width={{ md: "45%" }}
+              ></LabelInput>
+              <LabelInput
+                control={control}
+                name="dimensions.width"
+                placeholder="Largura(cm)"
+                title="Largura"
+                width={{ md: "45%" }}
+              ></LabelInput>
+            </Grid>
 
             <Grid gap={2}>
               <Divider />
               <Button onPress={handleSubmit(addProduct)}>
-                <Text>Adicoinar produto</Text>
+                Adicoinar produto
               </Button>
             </Grid>
           </Grid>
         </form>
-        <IconButton
-          position="absolute"
-          left={2}
-          top={2}
-          icon={<UndoRoundedIcon fontSize="large" />}
-          onPress={() => navigate("/product")}
-          color="secondary.200"
-        ></IconButton>
       </Grid>
+
+      <IconButton
+        position="absolute"
+        left={16}
+        top={4}
+        icon={<UndoRoundedIcon fontSize="large" />}
+        onPress={() => navigate("/product")}
+        color="secondary.200"
+      ></IconButton>
     </Grid>
   );
 };

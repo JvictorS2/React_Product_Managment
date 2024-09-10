@@ -14,52 +14,80 @@ const DataTable = ({ HeadTable, data }) => {
 
   const CheadTable = () => {
     return (
-      <HStack justifyContent="space-between">
-        {HeadTable.map((item, index) =>
-          /* Bloqueia o acesso ao id */
-          item.name !== "id" ? (
-            <Grid py={3} key={index} flex={item.size}>
-              <Text textAlign="center" bold>
-                {item.name}
-              </Text>
-            </Grid>
-          ) : (
-            ""
-          )
-        )}
-      </HStack>
-    );
-  };
-  // Item da tabela
-  const CiItemTable = ({ item }) => {
-    const valuesArray = Object.values(item);
-    return (
-      <>
-        <HStack m={3} justifyContent="space-between">
-          {valuesArray.map((item, index) =>
+      <Grid bg="secondary.100">
+        <HStack justifyContent="space-between">
+          {HeadTable.map((item, index) =>
             /* Bloqueia o acesso ao id */
-            HeadTable[index].name !== "id" ? (
-              <Grid py={1} key={index} flex={HeadTable[index].size}>
-                <Text textAlign="center">
-                  {/* Verifica se pricisa do R$ na frente caso seja valor */}
-                  {HeadTable[index].name === "price" ? (
-                    <>R$ {item}</>
-                  ) : (
-                    <>{item}</>
-                  )}
+            item.name !== "id" ? (
+              <Grid py={3} key={index} flex={item.size}>
+                <Text textAlign="center" bold>
+                  {item.name}
                 </Text>
               </Grid>
             ) : (
               ""
             )
           )}
-          <Grid alignItems="center" flex={6}>
+        </HStack>
+      </Grid>
+    );
+  };
+  // Item da tabela
+  const CiItemTable = ({ item }) => {
+
+    
+    
+    return (
+      <>
+        <HStack m={3} justifyContent="space-between">
+          {/* {valuesArray.map((item, index) =>
+              Bloqueia o acesso ao id  
+            HeadTable[index].name !== "id" ? (
+              <Grid flex={HeadTable[index].size} py={1} key={index}>
+                <Text textAlign="center">
+                  
+                  {HeadTable[index].name === "price" ? (
+                    <>R$ {item}</>
+                  ) : (
+                    <> {item}</>
+                  )}
+                </Text>
+              </Grid>
+            ) : (
+              <></>
+            )
+          )} */}
+
+          <Grid flex={6} alignItems="center">
             <IconButton
               icon={<MoreHorizIcon fontSize="large" />}
               color="secondary.200"
               onPress={() => navigate(`/Product/Details/${item.id}`)}
             />
           </Grid>
+
+          {/* <Grid flex={6} flexDirection="row" justifyContent="space-evenly">
+            <Grid alignItems="center">
+              <IconButton
+                icon={<MoreHorizIcon fontSize="large" />}
+                color="secondary.200"
+                onPress={() => navigate(`/Product/Details/${item.id}`)}
+              />
+            </Grid>
+            <Grid alignItems="center">
+              <IconButton
+                icon={<MoreHorizIcon fontSize="large" />}
+                color="secondary.200"
+                onPress={() => navigate(`/Product/Details/${item.id}`)}
+              />
+            </Grid>
+            <Grid alignItems="center">
+              <IconButton
+                icon={<MoreHorizIcon fontSize="large" />}
+                color="secondary.200"
+                onPress={() => navigate(`/Product/Details/${item.id}`)}
+              />
+            </Grid> */}
         </HStack>
       </>
     );

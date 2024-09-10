@@ -1,41 +1,72 @@
 import { useContext, useEffect, useState } from "react";
 import {
-  Avatar,
   Button,
   Center,
-  Container,
   Grid,
   Heading,
-  HStack,
-  Input,
+  IconButton,
+  ImagePage,
+  LabelInput,
   Text,
   VStack,
 } from "../../../components";
 import "./Login.css";
 import { loginFirebase, verifyLogin } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
-import { MyContext } from "../../../context/statesGlobal";
 import { authContext } from "../../../context/authContext";
 
+// hook form
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+// Icons materail ui
+import EmailIcon from "@mui/icons-material/Email";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+
 const Login = () => {
-  const { authStates, setAuthStates } = useContext(authContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { authStates } = useContext(authContext);
   const navigate = useNavigate();
+  const [show, setShow] = useState(true);
+
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
   }, []);
 
-  const loginByEmailPassword = async () => {
+  // Regras de validação
+
+  const schema = yup
+    .object({
+      email: yup
+        .string("Valor inválido")
+        .email("O campo precisa ser um email válido ex: react@gmail.com")
+        .required("Campo obrigatório"),
+      password: yup
+        .string("Valor inválido")
+        .required("Campo obrigatório"),
+    })
+    .required();
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  // realizar login
+  const loginByEmailPassword = async (data) => {
     // states to Sign in
     try {
       // realizar o processo de login
       const response = await loginFirebase(
         authStates.authFirebase,
-        email,
-        password
+        data.email,
+        data.password
       );
       if (response) {
         //redireciona para o dashboard
@@ -50,68 +81,94 @@ const Login = () => {
   };
 
   return (
-    <Grid width="100%" height="100vh" bg="primary.100">
-      <form onSubmit={(event) => event.preventDefault}>
-        <Center height="100vh">
-          <VStack flex={1} p={50} borderRadius="md" space={2}>
-            <Grid justifyContent="center" flexGrow={4}>
-              <Heading fontSize="4xl" color="text.100" alignSelf="center">
-                Log in
-              </Heading>
-            </Grid>
-            <VStack space={6}>
-              <Grid>
-                <Input
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                  placeholder="Insira seu email"
-                />
+    <Grid width="100%" height="100vh">
+      <Grid
+        zIndex={1}
+        w={{ base: "100%", lg: "50%", xl: "40%" }}
+        bg={{ base: "primary.100", md: "" }}
+      >
+        <form>
+          <Center height="100vh">
+            <VStack
+              bg={{ md: "tertiary.300" }}
+              p={{ base: 6, md: 16, xl: 38 }}
+              borderRadius="md"
+              space={6}
+            >
+              <Grid justifyContent="center" flexGrow={4}>
+                <Heading color="text.100" alignSelf="center">
+                  Log in
+                </Heading>
               </Grid>
-              <Grid>
-                <Input
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  placeholder="Insira sua senha"
-                />
-              </Grid>
-              <Grid>
-                <Button
-                  size="md"
-                  width="70%"
-                  alignSelf="center"
-                  onPress={loginByEmailPassword}
-                >
-                  <Text>Log in</Text>
-                </Button>
-              </Grid>
-              <Grid>
+              <VStack space={5}>
+                <LabelInput
+                  control={control}
+                  name={"email"}
+                  placeholder="Insira o email"
+                  title="Email"
+                  errorMessage={errors.email?.message}
+                  InputLeftElement={
+                    <IconButton
+                      icon={<EmailIcon />}
+                      size={5}
+                      mx="2"
+                      color="muted.400"
+                    />
+                  }
+                ></LabelInput>
+                <LabelInput
+                  control={control}
+                  name={"password"}
+                  placeholder="Insira a senha"
+                  title="Senha"
+                  type={show ? "password" : "text"}
+                  errorMessage={errors.password?.message}
+                  InputRightElement={
+                    <IconButton
+                      icon={show ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      size={5}
+                      mx="2"
+                      color="muted.400"
+                      onPress={() => setShow(!show)}
+                    />
+                  }
+                ></LabelInput>
+                <Grid>
+                  <Text
+                    cursor="pointer"
+                    alignSelf="end"
+                    textDecorationLine="underline"
+                    onPress={() => navigate("/recovery")}
+                  >
+                    Esqueci minha senha
+                  </Text>
+                </Grid>
+                <Grid>
+                  <Button
+                    alignSelf="center"
+                    onPress={handleSubmit(loginByEmailPassword)}
+                  >
+                    Log in
+                  </Button>
+                </Grid>
+              </VStack>
+              <Grid justifyContent="end" flexGrow={10}>
                 <Text
-                  bold
-                  alignSelf="center"
                   cursor="pointer"
-                  onPress={() => navigate("/recovery")}
+                  alignSelf="end"
+                  textDecorationLine="underline"
+                  onPress={() => navigate("/signup")}
                 >
-                  Esqueci minha senha
+                  Criar nova conta
                 </Text>
               </Grid>
             </VStack>
-            <Grid justifyContent="end" flexGrow={10}>
-              <Text
-                bold
-                alignSelf="center"
-                fontSize="2xl"
-                cursor="pointer"
-                onPress={() => navigate("/signup")}
-              >
-                Cadastrar
-              </Text>
-            </Grid>
-          </VStack>
-        </Center>
-      </form>
+          </Center>
+        </form>
+      </Grid>
+      <ImagePage></ImagePage>
     </Grid>
   );
 };
 
 export default Login;
-
