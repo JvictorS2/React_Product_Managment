@@ -1,12 +1,11 @@
-/* TODO* Dark mode */
+/* Dark mode */
 import { extendTheme } from "native-base";
-/* TODO* Light mode */
+
 const ThemeDark = extendTheme({
   colors: {
     // Add new color
     primary: {
-      50: "",
-      100: "#0a0908" /* cor principal */,
+      100: "#000814" /* cor principal */,
       200: "#000" /* branco puro */,
     },
     secondary: {
@@ -23,6 +22,7 @@ const ThemeDark = extendTheme({
     text: {
       50: "#171717" /* texto junto da cor secundária */,
       100: "#FEF7FF" /* texto junto da cor principal */,
+      200: "#fff",
     },
   },
   fonts: {

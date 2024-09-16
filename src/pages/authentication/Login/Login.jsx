@@ -75,7 +75,6 @@ const Login = () => {
       } else {
         toast.warning("Email não verificado!, favor verificar seu email", {
           position: "top-right",
-          theme: "dark",
         });
         setLoadingState(false);
         return;
@@ -83,7 +82,6 @@ const Login = () => {
     } catch (error) {
       toast.error("Credênciais inválidas!", {
         position: "top-right",
-        theme: "dark",
       });
       setLoadingState(false);
     }
@@ -146,6 +144,7 @@ const Login = () => {
                   <Text
                     cursor="pointer"
                     alignSelf="end"
+                    color="text.200"
                     textDecorationLine="underline"
                     onPress={() => navigate("/recovery")}
                   >
@@ -166,6 +165,7 @@ const Login = () => {
               <Grid justifyContent="end" flexGrow={10}>
                 <Text
                   cursor="pointer"
+                  color="text.200"
                   alignSelf="end"
                   textDecorationLine="underline"
                   onPress={() => navigate("/signup")}

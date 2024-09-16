@@ -8,8 +8,8 @@ const HeadingNativeBase = (props) => {
         lg: "4xl", // Para telas grandes
         xl: "5xl", // Para telas extra grandes
       }}
+      color="text.100"
       {...props}
-      color={"text.100"}
     ></Heading>
   );
 };

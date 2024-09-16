@@ -8,6 +8,7 @@ import { authContext } from "../../context/authContext";
 import { getAllData } from "../../utils/dataBaseActions";
 import { useNavigate } from "react-router-dom";
 import { useBreakpointValue } from "native-base";
+import { toast } from "react-toastify";
 
 /* Lógica para carrega os dados:
 1° cenárii: refresh na página, sempre que ocorre um refresh na página proprosital aparecerá as vezes

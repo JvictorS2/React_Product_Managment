@@ -5,6 +5,7 @@ import ModeEditRoundedIcon from "@mui/icons-material/ModeEditRounded";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { deleteData } from "../../../utils/dataBaseActions";
 import { authContext } from "../../../context/authContext";
+import { toast } from "react-toastify";
 
 const Btable = ({ item, HeadTable, navigate,Load }) => {
   const ObjectArrayToObjectKeysArray = (HeadTable) => {
@@ -16,23 +17,21 @@ const Btable = ({ item, HeadTable, navigate,Load }) => {
   };
 
   const deleteProduct = async (id) => {
-    await deleteData(authStates.uid, "products", id);
-    navigate("/product");
+   
+    try {
+      await deleteData(authStates.uid, "products", id);
+      toast.success("Registro removido!", {
+        position: "top-right",
+      });
+    } catch (error) {
+      console.log(error)
+      toast.error("Falha ao remover registro!", {
+        position: "top-right",
+      });
+    }
   };
 
-  /*   const findOutIfInHeadTable = (findThis, HeadTableArray) => {
-     Retorna true caso o findThis estaja contido no Headtable e false caso o contrário 
 
-    HeadTable.forEach((item) =>
-      item.name !== undefined ? HeadTableArray.push(item.name) : null
-    );
-
-    const result = HeadTableArray.find(
-      (itemInHeadTable) => itemInHeadTable === findThis
-    );
-
-    return result !== undefined ? true : false;
-  }; */
   const { authStates } = useContext(authContext);
   const [HeadTableArray, setHeadTableArray] = useState(
     ObjectArrayToObjectKeysArray(HeadTable)
@@ -80,14 +79,14 @@ const Btable = ({ item, HeadTable, navigate,Load }) => {
             <Grid>
               <IconButton
                 icon={<DeleteRoundedIcon fontSize="medium" />}
-                color="#FEF7FF"
+                color="secondary.200"
                 onPress={() => deleteProduct(item.id)}
               />
             </Grid>
             <Grid>
               <IconButton
                 icon={<ModeEditRoundedIcon fontSize="medium" />}
-                color="#FEF7FF"
+                color="secondary.200"
                 onPress={() => navigate(`/Product/Edit/${item.id}`)}
               />
             </Grid>

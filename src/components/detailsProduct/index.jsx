@@ -5,20 +5,34 @@ import ModeEditRoundedIcon from "@mui/icons-material/ModeEditRounded";
 import { deleteData } from "../../utils/dataBaseActions";
 import { useContext } from "react";
 import { authContext } from "../../context/authContext";
+import { toast } from "react-toastify";
 
 const DetailsProduct = ({ data, id }) => {
   const navigate = useNavigate();
   const { authStates } = useContext(authContext);
 
   const deleteProduct = async () => {
-    await deleteData(authStates.uid, "products", id);
-    navigate("/product");
+
+    try {
+      await deleteData(authStates.uid, "products", id);
+      toast.success("Registro removido!", {
+        position: "top-right",
+      });
+        navigate("/product");
+    } catch (error) {
+      console.log(error);
+      toast.error("Falha ao remover registro!", {
+        position: "top-right",
+      });
+    }
   };
 
   return (
     <Grid p={2} flex={1} borderRadius={2}>
       <Grid p={3} mb={1} bg="secondary.100">
-        <Heading textAlign="center">Detalhes do produto</Heading>
+        <Heading color="#fff" textAlign="center">
+          Detalhes do produto
+        </Heading>
       </Grid>
       <Grid mx={2}>
         <Grid>

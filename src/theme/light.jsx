@@ -1,10 +1,10 @@
+/* Light mode */
 import { extendTheme } from "native-base";
-/* TODO* Light mode */
+
 const ThemeLight = extendTheme({
   colors: {
     // Add new color
     primary: {
-      50: "rgba(84, 255, 71, 0.7)" /* constrate */,
       100: "#E5EBEE" /* cor principal */,
       200: "#fff" /* branco puro */,
     },
@@ -15,11 +15,14 @@ const ThemeLight = extendTheme({
     },
     tertiary: {
       100: "#cdb4db", //edit button
-      200: "#ef233c", //delete button
-    },  
+      200: "#ef233c", //delete button,
+      300: "#faf9f9cc",
+      400: "#ccc000",
+    },
     text: {
       50: "#FEF7FF" /* texto junto da cor secundária */,
       100: "#171717" /* texto junto da cor principal */,
+      200: "#A29E99",
     },
   },
   fonts: {

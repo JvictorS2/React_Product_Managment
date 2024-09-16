@@ -8,7 +8,7 @@ const Htable = ({HeadTable}) => {
             /* Bloqueia o acesso ao id */
             item.name !== "id" ? (
               <Grid py={3} key={index} flex={item.size}>
-                <Text textAlign="center" bold>
+                <Text textAlign="center" color="#fff" bold>
                   {item.namePort}
                 </Text>
               </Grid>

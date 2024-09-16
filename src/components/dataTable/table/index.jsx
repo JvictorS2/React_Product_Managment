@@ -10,35 +10,16 @@ import Btable from "../Btable";
 
 const DataTable = ({ HeadTable, data, navigate,Load }) => {
 
-
-  
-
-/*   const FilterData = async (dataBrut) => {
-    if (dataBrut !== 0) {
-      setTryLoading(true);
-
-      const keysToKeep = [];
-
-      HeadTable.forEach((item) => keysToKeep.push(item.name));
-
-      const filteredObject = await dataBrut.map((item, index) =>
-        Object.fromEntries(
-          Object.entries(item).filter(([key]) => keysToKeep.includes(key))
-        )
-      );
-
-      return filteredObject;
-    }
-  }; */
-
   // Tabela completa
   return (
     <>
       <Grid px={1} flex={1} bg="primary.100">
+        
         <Htable HeadTable={HeadTable}></Htable>
         <Divider mb={2} />
         {/* Redenriza os itens da tabela */}
         {data != null ? (
+
           <FlatList
             data={data}
             renderItem={({ item }) => (
@@ -50,6 +31,7 @@ const DataTable = ({ HeadTable, data, navigate,Load }) => {
           <></>
         )}
       </Grid>
+
       <FloatBtn
         position={"absolute"}
         right={4}
@@ -63,6 +45,7 @@ const DataTable = ({ HeadTable, data, navigate,Load }) => {
           pointerEvents="none"
         />
       </FloatBtn>
+
     </>
   );
 };

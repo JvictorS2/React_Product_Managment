@@ -89,14 +89,12 @@ const SignUp = (props) => {
        );
        toast.success("Conta criada com sucesso", {
          position: "top-right",
-         theme: "dark",
        });
        setLoadingState(false);
        navigate("/login");
      } catch (error) {
        toast.error("Falha ao criar conta", {
          position: "top-right",
-         theme: "dark",
        });
        setLoadingState(false);
      }
@@ -206,6 +204,7 @@ const SignUp = (props) => {
                   bold
                   alignSelf="end"
                   cursor="pointer"
+                  color="text.200"
                   textDecorationLine="underline"
                   onPress={() => navigate("/login")}
                 >

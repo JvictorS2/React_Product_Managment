@@ -1,15 +1,17 @@
 import "./Dashboard.css";
 /* hooks */
 import { useNavigate } from "react-router-dom";
-import {  useEffect, useState } from "react";
+import {  useContext, useEffect, useState } from "react";
 /* my */
 import { verifyLogin } from "../../utils/auth";
-import { Grid, Text, NavBar } from "../../components";
+import { Grid, Text, NavBar, Heading, IconButton } from "../../components";
+import { authContext } from "../../context/authContext";
+import StackedLineChartRoundedIcon from "@mui/icons-material/StackedLineChartRounded";
+import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 
-
-const DashBoard = (props) => {
+const DashBoard = () => {
   const navigate = useNavigate();
-
+ const { authStates } = useContext(authContext);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
@@ -17,25 +19,44 @@ const DashBoard = (props) => {
   }, []);
 
 
-   useEffect(() => {
-     const timeoutId = setTimeout(() => {
-       // Ação que você quer realizar após 1 segundo
-       console.log("useEffect acionado após 1 segundo");
-     }, 3000); // 1000 milissegundos = 1 segundo
-
-     // Limpa o timeout caso o componente seja desmontado antes de completar
-     return () => clearTimeout(timeoutId);
-   }, []); 
-
   return (
     <Grid bg="primary.100" h="100vh">
-      <NavBar navigate={navigate} auth={props.auth}></NavBar>
-      <Grid>
-        <Text>Conteúdo principal aqui</Text>
-      </Grid>
-      <div>
+      <NavBar navigate={navigate}></NavBar>
+      <Grid p={12} gap={24} w="100vw" h="100%">
+        <Heading textAlign="center">
+          Bem vindo{" "}
+          <Heading color="secondary.100">{authStates.displayName}</Heading>, O que
+          vai querer fazer?
+        </Heading>
 
-    </div>
+        <Grid
+          flexDirection="row"
+          gap={12}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid flexDirection="column" alignItems="center">
+            <IconButton
+              icon={<StackedLineChartRoundedIcon fontSize="large" />}
+              color="secondary.200"
+              onPress={() => navigate("/product")}
+            />
+            <Text onPress={() => navigate("/product")} bold>
+              Ver Estoque
+            </Text>
+          </Grid>
+          <Grid flexDirection="column" alignItems="center">
+            <IconButton
+              icon={<AddToPhotosIcon fontSize="large" />}
+              color="secondary.200"
+              onPress={() => navigate("/product/new")}
+            />
+            <Text onPress={() => navigate("/product/new")} bold>
+              Adicionar produto
+            </Text>
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };

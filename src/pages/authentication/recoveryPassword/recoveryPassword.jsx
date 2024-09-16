@@ -59,14 +59,12 @@ const RecoveryPassword = () => {
       );
       toast.success("Email enviado com sucesso", {
         position: "top-right",
-        theme: "dark",
       });
       setLoadingState(false);
       navigate("/login");
     } catch (error) {
       toast.error("Falha ao enviar email", {
         position: "top-right",
-        theme: "dark",
       });
       setLoadingState(false);
     }
@@ -126,6 +124,7 @@ const RecoveryPassword = () => {
                 <Text
                   alignSelf="end"
                   cursor="pointer"
+                  color="text.200"
                   textDecorationLine="underline"
                   onPress={() => navigate("/login")}
                 >

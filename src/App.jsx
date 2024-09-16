@@ -15,9 +15,9 @@ export default function App() {
   const { dataGlobal } = useContext(globalContext);
   
   return (
-    <NativeBaseProvider theme={dataGlobal.darkMode ? ThemeLight : ThemeDark}>
-      <AppRoutes fallback="Loading..."></AppRoutes>
-      <ToastContainer />
+    <NativeBaseProvider theme={dataGlobal.darkMode ? ThemeDark : ThemeLight}>
+      <AppRoutes fallback={"Trocando de página"}></AppRoutes>
+      <ToastContainer theme="colored" />
     </NativeBaseProvider>
   );
 }

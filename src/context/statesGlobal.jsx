@@ -12,7 +12,7 @@ const globalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
   const [dataGlobal, setDataGlobal] = useState({
-    darkMode: false
+    darkMode: true
   });
 
   return (
