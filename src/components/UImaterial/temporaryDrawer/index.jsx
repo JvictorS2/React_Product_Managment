@@ -11,6 +11,9 @@ import {
   Logout,
 } from "../../../components";
 
+import { useContext } from "react";
+import { authContext } from "../../../context/authContext";
+
 /* Material Drawer */
 import Drawer from "@mui/material/Drawer";
 /* Materail Icons */
@@ -22,6 +25,8 @@ import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
 
 
 const TemporaryDrawer = (props) => {
+
+  const { authStates } = useContext(authContext);
 
   const DrawerList = (
     <Grid
@@ -76,8 +81,8 @@ const TemporaryDrawer = (props) => {
           </Text>
         </Grid>
       </VStack>
-      <Divider m={4} w="70wv" />
-      <Grid flexDirection="row" alignItems="center" gap={3} px={2} flex={3}>
+      <Divider m={4} mb={0} w="70wv" />
+      <Grid flexDirection="row" alignItems="center" gap={3} p={3} flex={2}>
         <Avatar
           source={{
             uri: "https://avatars.githubusercontent.com/u/106039120?s=400&u=733cda27eede61bc38d61fc23a765bdd198c3d7e&v=4",
@@ -85,8 +90,8 @@ const TemporaryDrawer = (props) => {
           size="md"
         ></Avatar>
         <Grid flex={2} px={1}>
-          <Text bold>JVicotS2</Text>
-          <Text fontSize="xs">vssimoesdunck@gmail.com</Text>
+          <Text bold>{authStates.displayName}</Text>
+          <Text fontSize="xs">{authStates.email}</Text>
         </Grid>
         <Grid>
           <Logout navigate={props.navigate}></Logout>

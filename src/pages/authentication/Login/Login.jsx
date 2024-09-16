@@ -14,6 +14,7 @@ import "./Login.css";
 import { loginFirebase, verifyLogin } from "../../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../../../context/authContext";
+import { toast } from "react-toastify";
 
 // hook form
 import { useForm } from "react-hook-form";
@@ -29,7 +30,7 @@ const Login = () => {
   const { authStates } = useContext(authContext);
   const navigate = useNavigate();
   const [show, setShow] = useState(true);
-
+  const [isLoadingState, setLoadingState] = useState(false);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
@@ -44,9 +45,7 @@ const Login = () => {
         .string("Valor inválido")
         .email("O campo precisa ser um email válido ex: react@gmail.com")
         .required("Campo obrigatório"),
-      password: yup
-        .string("Valor inválido")
-        .required("Campo obrigatório"),
+      password: yup.string("Valor inválido").required("Campo obrigatório"),
     })
     .required();
 
@@ -59,8 +58,10 @@ const Login = () => {
   });
 
   // realizar login
+  // realizar login
   const loginByEmailPassword = async (data) => {
     // states to Sign in
+    setLoadingState(true);
     try {
       // realizar o processo de login
       const response = await loginFirebase(
@@ -72,11 +73,19 @@ const Login = () => {
         //redireciona para o dashboard
         navigate("/dashboard");
       } else {
-        alert("email não verificado");
+        toast.warning("Email não verificado!, favor verificar seu email", {
+          position: "top-right",
+          theme: "dark",
+        });
+        setLoadingState(false);
         return;
       }
     } catch (error) {
-      throw error;
+      toast.error("Credênciais inválidas!", {
+        position: "top-right",
+        theme: "dark",
+      });
+      setLoadingState(false);
     }
   };
 
@@ -147,6 +156,8 @@ const Login = () => {
                   <Button
                     alignSelf="center"
                     onPress={handleSubmit(loginByEmailPassword)}
+                    isLoading={isLoadingState}
+                    isLoadingText="verificando..."
                   >
                     Log in
                   </Button>

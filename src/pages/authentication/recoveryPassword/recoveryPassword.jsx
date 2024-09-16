@@ -1,7 +1,9 @@
 import "./recoveryPassword.css";
-import { useNavigate } from "react-router-dom";
-import { useContext, useEffect } from "react";
+
 import { recoveryPasswordFirebase, verifyLogin } from "../../../utils/auth";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import {
   Button,
   Center,
@@ -16,44 +18,57 @@ import {
 import { authContext } from "../../../context/authContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 
+import * as yup from "yup";
 import EmailIcon from "@mui/icons-material/Email";
 
 const RecoveryPassword = () => {
   const navigate = useNavigate();
   const { authStates } = useContext(authContext);
+  const [isLoadingState, setLoadingState] = useState(false);
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
   useEffect(() => {
     verifyLogin(navigate);
   }, []);
 
-    const schema = yup
-      .object({
-        emailRecovery: yup
-          .string("Valor inválido")
-          .email("O campo precisa ser um email válido ex: react@gmail.com")
-          .required("Campo obrigatório"),
-        password: yup.string("Valor inválido").required("Campo obrigatório"),
-      })
-      .required();
+  const schema = yup
+    .object({
+      emailRecovery: yup
+        .string("Valor inválido")
+        .email("O campo precisa ser um email válido ex: react@gmail.com")
+        .required("Campo obrigatório")
+    })
+    .required();
 
-    const {
-      control,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: yupResolver(schema),
-    });
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const recoveryPassword = async (data) => {
     // states to Sign in
-
+    setLoadingState(true);
     try {
-      await recoveryPasswordFirebase(authStates.authFirebase, data.emailRecovery);
+      await recoveryPasswordFirebase(
+        authStates.authFirebase,
+        data.emailRecovery
+      );
+      toast.success("Email enviado com sucesso", {
+        position: "top-right",
+        theme: "dark",
+      });
+      setLoadingState(false);
+      navigate("/login");
     } catch (error) {
-      throw error;
+      toast.error("Falha ao enviar email", {
+        position: "top-right",
+        theme: "dark",
+      });
+      setLoadingState(false);
     }
   };
 
@@ -100,6 +115,8 @@ const RecoveryPassword = () => {
                   <Button
                     alignSelf="center"
                     onPress={handleSubmit(recoveryPassword)}
+                    isLoading={isLoadingState}
+                    isLoadingText="verificando..."
                   >
                     Enviar solicitação
                   </Button>

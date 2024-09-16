@@ -40,6 +40,8 @@ const AuthProvider = ({ children }) => {
     dbFirebase: db,
     authFirebase: auth,
     uid: null,
+    displayName: null,
+    email: null,
   });
 
   /* Controla quando o usuário está logado ou não, também está sendo usado para prevenir que parte do
@@ -50,6 +52,8 @@ código seja compilado antes de setar o estado por questões de funções async 
         setAuthStates({
           ...authStates,
           uid: user.uid,
+          displayName: user.displayName,
+          email: user.email,
         });
       } else {
         // Define uid como null quando não há usuário

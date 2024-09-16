@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import { toast } from "react-toastify";
 import PersonIcon from "@mui/icons-material/Person";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -31,6 +32,7 @@ const SignUp = (props) => {
 
   const [show, setShow] = useState(true);
   const { authStates } = useContext(authContext);
+      const [isLoadingState, setLoadingState] = useState(false);
   const navigate = useNavigate();
 
   // bloqueia o acesso a rotas não permitidas com base se o usuário está logado ou não
@@ -76,13 +78,29 @@ const SignUp = (props) => {
     resolver: yupResolver(schema),
   });
 
-  const signup = async (data) => {
-    try {
-      await signupFirebase(authStates.authFirebase, data.email, data.password);
-    } catch (error) {
-      throw error;
-    }
-  };
+   const signup = async (data) => {
+     setLoadingState(true);
+     try {
+       await signupFirebase(
+         authStates.authFirebase,
+         data.email,
+         data.password,
+         data.userName
+       );
+       toast.success("Conta criada com sucesso", {
+         position: "top-right",
+         theme: "dark",
+       });
+       setLoadingState(false);
+       navigate("/login");
+     } catch (error) {
+       toast.error("Falha ao criar conta", {
+         position: "top-right",
+         theme: "dark",
+       });
+       setLoadingState(false);
+     }
+   };
 
   return (
     <Grid width="100%" height="100vh">
@@ -173,7 +191,12 @@ const SignUp = (props) => {
                 ></LabelInput>
 
                 <Grid>
-                  <Button alignSelf="center" onPress={handleSubmit(signup)}>
+                  <Button
+                    alignSelf="center"
+                    onPress={handleSubmit(signup)}
+                    isLoading={isLoadingState}
+                    isLoadingText="verificando..."
+                  >
                     Cadastrar
                   </Button>
                 </Grid>

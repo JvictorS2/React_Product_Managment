@@ -6,6 +6,7 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  updateProfile,
 } from "firebase/auth/cordova";
 
 // Realiza o processo de login por email e senha
@@ -37,13 +38,23 @@ const loginFirebase = async (auth, email, password) => {
 
 /* Sign up */
 
-const signupFirebase = async (auth,email,password) => {
+const signupFirebase = async (auth, email, password, userName) => {
   try {
-    await createUserWithEmailAndPassword(auth,email,password)
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+
+        updateProfile(user, {
+          displayName: userName,
+        });
+      })
+      .catch((error) => {
+        throw error;
+      });
   } catch (error) {
     throw error;
   }
-}
+};
 
 // Bloqueia o acesso a certas rotas dependendo se o usuário está logado ou não.
 const verifyLogin = (navigate) => {
