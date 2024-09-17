@@ -1,7 +1,7 @@
 import "./Dashboard.css";
 /* hooks */
 import { useNavigate } from "react-router-dom";
-import {  useContext, useEffect, useState } from "react";
+import {  useContext, useEffect } from "react";
 /* my */
 import { verifyLogin } from "../../utils/auth";
 import { Grid, Text, NavBar, Heading, IconButton } from "../../components";
@@ -22,15 +22,15 @@ const DashBoard = () => {
   return (
     <Grid bg="primary.100" h="100vh">
       <NavBar navigate={navigate}></NavBar>
-      <Grid p={12} gap={24} w="100vw" h="100%">
+      <Grid p={12} gap={24} w="100vw">
         <Heading textAlign="center">
           Bem vindo{" "}
-          <Heading color="secondary.100">{authStates.displayName}</Heading>, O que
-          vai querer fazer?
+          <Heading color="secondary.100">{authStates.displayName}</Heading>, O
+          que vai querer fazer?
         </Heading>
 
         <Grid
-          flexDirection="row"
+          flexDirection={{ base: "column", md: "row" }}
           gap={12}
           alignItems="center"
           justifyContent="center"

@@ -13,7 +13,7 @@ const DataTable = ({ HeadTable, data, navigate,Load }) => {
   // Tabela completa
   return (
     <>
-      <Grid px={1} flex={1} bg="primary.100">
+      <Grid pt={3} pb={5} flex={1} bg="primary.100">
         
         <Htable HeadTable={HeadTable}></Htable>
         <Divider mb={2} />
